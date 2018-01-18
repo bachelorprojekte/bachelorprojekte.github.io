@@ -1,0 +1,16 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "minima";
+
+.post img {
+  width: 89%;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.post .caption {
+  text-align: center;
+}

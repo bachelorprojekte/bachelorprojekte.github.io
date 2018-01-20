@@ -24,3 +24,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Added at 2018-01-20 22:43:17 +0100 by kryptokommunist:
+gem "jekyll-paginate", "~> 1.1"

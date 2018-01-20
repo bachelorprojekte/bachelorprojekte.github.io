@@ -4,6 +4,10 @@
 
 @import "minima";
 
+.post {
+  margin-bottom: 100px;
+}
+
 .post img {
   width: 89%;
   display:block;
@@ -13,4 +17,36 @@
 
 .post .caption {
   text-align: center;
+}
+
+.post-tags {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.post-tag {
+    display: inline-block;
+    position: relative;
+    background: #424242;;
+    padding: 0 .5rem;
+    margin-right: .5rem;
+    border-radius: 4px;
+    color: #fff !important;
+    font-family: "PT Sans", Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out
+}
+
+.post-tag:hover {
+    text-decoration: none;
+    background: #6a9fb5;
+    color: #fff
+}
+
+.svg-icon {
+  height: 15px;
+  width: 15px;
+  display: inline-block;
 }

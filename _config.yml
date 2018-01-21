@@ -20,7 +20,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   yada... Ok ok, die Seite dient bloß dem shameless self-plugging!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-
+author: Marcus Ding
+safe: true
 # Build settings
 markdown: kramdown
 theme: minima
@@ -30,6 +31,8 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 paginate: 5
+whitelist:
+  - jekyll-paginate
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

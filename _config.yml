@@ -27,6 +27,8 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-seo-tag
 paginate: 5
 
 # Exclude from processing.

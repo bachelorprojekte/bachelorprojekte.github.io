@@ -27,3 +27,9 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Added at 2018-01-20 22:43:17 +0100 by kryptokommunist:
 gem "jekyll-paginate", "~> 1.1"
+
+# Added at 2018-01-21 18:44:45 +0100 by kryptokommunist:
+gem "jekyll-sitemap", "~> 1.1"
+
+# Added at 2018-01-21 18:45:49 +0100 by kryptokommunist:
+gem "jekyll-seo-tag", "~> 2.4"

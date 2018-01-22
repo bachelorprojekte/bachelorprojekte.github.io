@@ -33,6 +33,7 @@
     position: relative;
     background: #424242;;
     padding: 0 .5rem;
+    margin: .2em;
     margin-right: .5rem;
     border-radius: 4px;
     color: #fff !important;
@@ -59,4 +60,21 @@ iframe {
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+#last-name {
+  color: #f22b74;;
+}
+
+#name {
+  font-size: 2.3em;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+  width: 100px;
+  overflow-y: hidden;
+}
+
+.site-title {
+    font-weight: bold;
 }

@@ -22,7 +22,7 @@ layout: default
     </header>
 
     <div class="post-content" itemprop="articleBody">
-      {{ post.content }}
+      {{ post.excerpt }}<a href="{{ post.url | relative_url }}">...mehr lesen</a>
     </div>
     <div class="post-meta post-tags">
       {% for tag in post.tags %}

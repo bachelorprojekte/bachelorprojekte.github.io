@@ -11,7 +11,7 @@ Ein Touristen-VISA für einen Kubaaufenthalt zu bekommen ist nicht schwer, der T
 Die Republik Kuba wartet mit tropisch-feuchtheißem Meeresklima auf und die Hauptinsel ist 1200 Kilometer lang und zwischen 30 und 190 Kilometer breit. Insgesamt leben dort 11,2 Millionen Kubaner. Zusammen erwirtschaften sie ein BIP von 85 Milliarden USD (2015), wobei das Durchschnittseinkommen bei 29 USD liegt. Auf Kuba waren einige Werbetafeln zu sehen, welche für Demokratie und die anstehenden Wahlen warben. Das auswärtige Amt bemerkt hierzu jedoch lakonisch in den Länderinformationen:
 
 <blockquote>
-<p>Regierungspartei: ausschließlich zugeladen: Kommunistische Partei Kubas</p>
+<p>Regierungspartei: ausschließlich zugelassen: Kommunistische Partei Kubas</p>
 <p>Opposition: neben der Kommunistischen Partei sind keine anderen Parteien zugelassen</p>
 </blockquote><!--more-->
 

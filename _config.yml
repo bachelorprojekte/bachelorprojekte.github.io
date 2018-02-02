@@ -31,8 +31,6 @@ plugins:
   - jekyll-seo-tag
 paginate: 5
 excerpt_separator: "<!--more-->"
-whitelist:
-  - jekyll-paginate
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

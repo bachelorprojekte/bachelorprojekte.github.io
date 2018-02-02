@@ -9,9 +9,6 @@ fi
 # enable error reporting to the console
 set -e
 
-# install necessary gems
-bundle install
-
 # build site with jekyll, by default to `_site' folder
 bundle exec jekyll build
 

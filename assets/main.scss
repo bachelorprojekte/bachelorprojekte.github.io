@@ -65,12 +65,14 @@
   height: 15px;
   width: 15px;
   display: inline-block;
+  margin-left: .3rem;
 }
 
 iframe {
   margin-left: auto;
   margin-right: auto;
   display: block;
+  width: 89%;
 }
 
 #last-name {
@@ -79,4 +81,14 @@ iframe {
 
 .site-title {
     font-weight: bold !important;
+}
+
+.madewith {
+  text-align: right;
+  margin: 1rem;
+  margin-top: -1.5rem;
+}
+
+.pagination {
+  margin-bottom: 1rem;
 }

@@ -33,6 +33,3 @@ gem "jekyll-sitemap", "~> 1.1"
 
 # Added at 2018-01-21 18:45:49 +0100 by kryptokommunist:
 gem "jekyll-seo-tag", "~> 2.4"
-
-# Added at 2018-02-02 22:10:13 +0100 by kryptokommunist:
-gem "jekyll-analytics", "~> 0.1.8"

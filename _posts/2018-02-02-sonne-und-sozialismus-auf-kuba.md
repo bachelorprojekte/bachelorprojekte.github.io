@@ -117,4 +117,4 @@ Alles in allem ist Kuba einen Besuch wert. Wenn man nicht nur im touristischen P
 
 TL;DR;
 
-Kuba ist sehr schön und es gibt einen faktischen Internetzölibat für Besucher.
+Kuba ist sehr schön und es gibt für Besucher einen faktischen Internetzölibat.

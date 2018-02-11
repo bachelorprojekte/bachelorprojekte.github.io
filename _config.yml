@@ -29,7 +29,7 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
-paginate: 5
+paginate: 6
 excerpt_separator: "<!--more-->"
 
 # Exclude from processing.

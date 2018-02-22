@@ -61,7 +61,7 @@ Nicht vergessen darf man den obligatorischen Besuch des Revolutionsmuseums in we
 Im Außenbereich finden sich Artefakte aus der Geschichte Kubas. Neben dem Boot auf dem Castro vor der erfolgreichen Revolution mit nur 50 Männern übersetzte findet sich auch allerlei vermischtes. So hat es das Triebwerk eines abgeschossenen U2-Spionageflugzeugs der Amerikaner in den Geschichtspark geschafft. Soldaten in strenger Uniform wachen über die Besucher und greifen bei Betreten des Rasens beherzt zur revolutionären Trillerpfeife. Alles in allem hat der Mythos Revolution an Glanz eingebüßt, die "Che Guevara"-Wachsfigur kann nicht den maroden Zustand Kubas vergessen machen. Ob dies als Narrativ stark genug ist, um die Menschen vom Aufbegehren und den Versuchungen des Kapitalismus abzuhalten wird die Zukunft zeigen.
 
 ![](https://farm5.staticflickr.com/4664/28341034649_10bdf70341_k.jpg)
-<p class="caption">Einschusslöcher, welche aus der Erstürmung des Gebäudes durch die Revolutionsgarden stammen soll.</p>
+<p class="caption">Einschusslöcher, welche aus der Erstürmung des Gebäudes durch die Revolutionsgarden stammen sollen.</p>
 
 ![](https://farm5.staticflickr.com/4670/40089236032_24f62434bf_k.jpg)
 <p class="caption">"Unter den Talaren, der Muff von Tausend Jahren" mag auch hier passend erscheinen, obschon Fidel Castro selbst hier zum El Presidente ernannt wurde.</p>

@@ -3,6 +3,8 @@
 ---
 
 @import "minima";
+$fa-font-path: "fonts/font-awesome/";
+@import 'font-awesome';
 
 .post {
   margin-bottom: 100px;
@@ -91,4 +93,21 @@ iframe {
 
 .pagination {
   margin-bottom: 1rem;
+}
+
+.search-box {
+  display: block;
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  font-size: 24px;
+  color: black;
+  border-radius: 4px;
+  margin: 0;
+  border: 1px solid #2a7ae2;
+}
+
+#search-results {
+  margin-top: 3rem;
+  list-style-type: none !important;
 }

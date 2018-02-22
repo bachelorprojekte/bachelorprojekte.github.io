@@ -29,8 +29,17 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-font-awesome-sass
+  - jekyll-lunr-js-search
+lunr_search:
+  excludes: [rss.xml, atom.xml]
+font-awesome:
+  assets: true
 paginate: 6
 excerpt_separator: "<!--more-->"
+sass:
+  load_paths: _sass
+  style: compressed
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

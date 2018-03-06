@@ -4,7 +4,7 @@ title: Search
 permalink: /search/
 exclude: true
 ---
-<div class="wrapper">
+
 <h1>Search</h1>
 
 <p>Suche nach Blogposts auf dieser Webseite.</p>
@@ -13,8 +13,7 @@ exclude: true
   <input type="text" id="search-box" placeholder="Search" name="query">
 </form>
 
-<ul id="search-results"></ul>
-</div>
+<ul class="post-list" id="search-results"></ul>
 
 <script>
   {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}

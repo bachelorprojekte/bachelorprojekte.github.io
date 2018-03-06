@@ -4,20 +4,24 @@ title: Search
 permalink: /search/
 exclude: true
 ---
+<div class="wrapper">
 <h1>Search</h1>
 
 <p>Suche nach Blogposts auf dieser Webseite.</p>
 
 <form action="/search" method="get">
-  <input type="text" id="search-box" placeholder="Search" name="query" class="search-box">
+  <input type="text" id="search-box" placeholder="Search" name="query">
 </form>
 
 <ul id="search-results"></ul>
+</div>
 
 <script>
+  {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
   window.store = {
     {% for post in site.posts %}
       "{{ post.url | slugify }}": {
+        "date": "{{ post.date | date: date_format }}",
         "title": "{{ post.title | xml_escape }}",
         "author": "{{ post.author | xml_escape }}",
         "category": "{{ post.category | xml_escape }}",

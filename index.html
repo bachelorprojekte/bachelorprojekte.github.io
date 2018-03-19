@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>HPI Bachelorprojekte 2017 | Bachelorprojekte informieren über heißen Scheiß</title>
+<meta name="generator" content="Jekyll v3.6.2" />
+<meta property="og:title" content="HPI Bachelorprojekte 2017" />
+<meta name="author" content="admin" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Bachelorprojekte informieren über heißen Scheiß" />
+<meta property="og:description" content="Bachelorprojekte informieren über heißen Scheiß" />
+<link rel="canonical" href="/" />
+<meta property="og:url" content="/" />
+<meta property="og:site_name" content="HPI Bachelorprojekte 2017" />
+<link rel="next" href="/page/2/" />
+<script type="application/ld+json">
+{"name":"HPI Bachelorprojekte 2017","description":"Bachelorprojekte informieren über heißen Scheiß","author":{"@type":"Person","name":"admin"},"@type":"WebSite","url":"/","headline":"HPI Bachelorprojekte 2017","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="HPI Bachelorprojekte 2017" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a href="/" class="site-title"><span id="first-name">HPI</span><span id="last-name"> BP17</span></a>
+
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+              
+                <a class="page-link" href="/about/">About</a>
+              
+            
+          
+            
+            
+          
+            
+            
+              
+                <a class="page-link" href="/overview/">Artikelübersicht</a>
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+                <a class="page-link" href="/tags/">Tags</a>
+              
+            
+          
+            
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a class="page-link" href="/category/bpgetimed/index.html">bpgetimed</a>
+            
+          
+            
+              <a class="page-link" href="/category/bpbigdatasecurity/index.html">bpbigdatasecurity</a>
+            
+          
+            
+              <a class="page-link" href="/category/bpbahn/index.html">bpbahn</a>
+            
+          
+            
+          
+            
+          
+          <a class="page-link" href="/search/">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+      </nav>
+    
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home">
+
+
+
+<!-- This loops through the paginated posts -->
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2018/03/19/latex-in-gitlab-ci.html">Automating in Gitlab-CI</a></h1>
+        <p class="post-meta">
+          <time datetime="2018-03-19T00:00:00+00:00" itemprop="datePublished">
+            
+            Mar 19, 2018
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Marcus Ding</span></span>
+          
+          
+            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="bpbahn/index.html">bpbahn</a></span></span>
+          
+        </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <h2 id="the-problem">The problem</h2>
+
+<p>You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. This makes you very sad. You ask yourself: What could I do about it?</p>
+
+<p><img src="https://hpi.de/fileadmin/user_upload/hpi/bilder/teaser_channels/studenten/students_2_boys_girl_main_entrance_1020x420.jpg" alt="Cooles Symbolbild" title="Cooles Symbolbild" /></p>
+
+<h2 id="the-solution">The solution</h2>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">compile_pdfs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="s">"""compile every TeX file in each repository subfolder"""</span>
+    <span class="n">second_level_items</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">first_level_dirs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_exempt_folders</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_level_dirs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">first_level_dir</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_level_dirs</span><span class="p">:</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relative_path</span><span class="p">,</span> <span class="n">first_level_dir</span><span class="p">)</span>
+        <span class="n">files_folders</span> <span class="o">=</span> <span class="n">get_files_folders</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+        <span class="n">second_level_items</span><span class="p">[</span><span class="n">first_level_dir</span><span class="p">]</span> <span class="o">=</span> <span class="n">files_folders</span>
+
+    <span class="k">for</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">second_level_items</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enforce_compliance</span><span class="p">(</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">second_level_items</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">main_filename</span> <span class="o">=</span> <span class="n">dir_name</span> <span class="o">+</span> <span class="s">".tex"</span>
+        <span class="n">folderpath</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relative_path</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">(</span><span class="s">'cd "{fp}" &amp;&amp; latexmk -output-directory=../latex_output -pdf "{f}"'</span>\
+            <span class="s">" -e '$pdflatex=q/pdflatex </span><span class="si">%</span><span class="s">O -shell-escape </span><span class="si">%</span><span class="s">S/'"</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fp</span><span class="o">=</span><span class="n">folderpath</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">main_filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">call</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">sccmsg</span> <span class="o">=</span> <span class="s">"</span><span class="se">\033</span><span class="s">[92mCompiled </span><span class="se">\033</span><span class="s">[94m{d}.tex</span><span class="se">\033</span><span class="s">[92m successfully</span><span class="se">\033</span><span class="s">[0m"</span>\
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">dir_name</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">sccmsg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">errmsg</span> <span class="o">=</span> <span class="s">"</span><span class="se">\033</span><span class="s">[91mError with compiling </span><span class="se">\033</span><span class="s">[94m{d}.tex</span><span class="se">\033</span><span class="s">[0m</span><span class="se">\n</span><span class="s">cmd: {c}"</span>\
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">cmd</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error_notify_and_exit</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span></code></pre></figure>
+
+<a href="/bpbahn/2018/03/19/latex-in-gitlab-ci.html">...mehr lesen</a>
+      </div>
+      <div class="post-meta post-tags">
+        
+          <a href="/tags/#gitlab-ci" class="post-tag"> gitlab-ci </a>
+        
+          <a href="/tags/#latex" class="post-tag"> latex </a>
+        
+          <a href="/tags/#python" class="post-tag"> python </a>
+        
+      </div>
+    </article>
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2018/03/05/moskau-cool-shit!.html">Moskau – Cool shit!</a></h1>
+        <p class="post-meta">
+          <time datetime="2018-03-05T00:00:00+00:00" itemprop="datePublished">
+            
+            Mar 5, 2018
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Marcus Ding</span></span>
+          
+          
+            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="bpbahn/index.html">bpbahn</a></span></span>
+          
+        </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Moscow is a giant freezing cold city where Soviet artifacts and capitalistism peacefully coexist. You don’t need any cash, there’s free WiFi on the underground and bus. And it’s so cold, it hurts.</p>
+
+<a href="/bpbahn/2018/03/05/moskau-cool-shit!.html">...mehr lesen</a>
+      </div>
+      <div class="post-meta post-tags">
+        
+          <a href="/tags/#travel" class="post-tag"> travel </a>
+        
+          <a href="/tags/#moscow" class="post-tag"> moscow </a>
+        
+          <a href="/tags/#russia" class="post-tag"> russia </a>
+        
+      </div>
+    </article>
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2018/02/02/sonne-und-sozialismus-auf-kuba.html">Sonne und Sozialismus auf Kuba</a></h1>
+        <p class="post-meta">
+          <time datetime="2018-02-02T00:00:00+00:00" itemprop="datePublished">
+            
+            Feb 2, 2018
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Marcus Ding</span></span>
+          
+          
+            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="bpbahn/index.html">bpbahn</a></span></span>
+          
+        </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Ein Touristen-VISA für einen Kubaaufenthalt zu bekommen ist nicht schwer, der Tourismus ist eine feste Devisenquelle für die kleine Karibische Insel mit seiner so wilden Vergangenheit. Spanische Kolonie, Revolution und Kubakrise lautet die Kurzzusammenfassung. Und nun ist Kuba eines der wenigen Länder, welches sich noch der Coca-Cola-Marktwirtschaft verweigert. Es sei der Vollständigkeit halber angemerkt, dass es dennoch ein leichtes ist, auf Kuba käuflich eine Cola zu erwerben.</p>
+
+<p>Die Republik Kuba wartet mit tropisch-feuchtheißem Meeresklima auf und die Hauptinsel ist 1200 Kilometer lang und zwischen 30 und 190 Kilometer breit. Insgesamt leben dort 11,2 Millionen Kubaner. Zusammen erwirtschaften sie ein BIP von 85 Milliarden USD (2015), wobei das Durchschnittseinkommen bei 29 USD liegt. Auf Kuba waren einige Werbetafeln zu sehen, welche für Demokratie und die anstehenden Wahlen warben. Das auswärtige Amt bemerkt hierzu jedoch lakonisch in <a href="https://www.auswaertiges-amt.de/de/kubasicherheit/212208">den Länderinformationen</a>:</p>
+
+<blockquote>
+<p><b>Regierungspartei:</b></p>
+<p>ausschließlich zugelassen: Kommunistische Partei Kubas</p>
+<p><b>Opposition:</b></p>
+<p>neben der Kommunistischen Partei sind keine anderen Parteien zugelassen</p>
+</blockquote>
+
+<a href="/bpbahn/2018/02/02/sonne-und-sozialismus-auf-kuba.html">...mehr lesen</a>
+      </div>
+      <div class="post-meta post-tags">
+        
+          <a href="/tags/#travel" class="post-tag"> travel </a>
+        
+          <a href="/tags/#kuba" class="post-tag"> kuba </a>
+        
+          <a href="/tags/#havanna" class="post-tag"> Havanna </a>
+        
+          <a href="/tags/#varadero" class="post-tag"> Varadero </a>
+        
+      </div>
+    </article>
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2017/04/21/indien-oder-jedenfalls-ein-winziger-teil-davon.html">Indien oder jedenfalls ein winziger Teil davon</a></h1>
+        <p class="post-meta">
+          <time datetime="2017-04-21T00:00:00+00:00" itemprop="datePublished">
+            
+            Apr 21, 2017
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Melvin Witte</span></span>
+          
+          
+            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="bpbahn/index.html">bpbahn</a></span></span>
+          
+        </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Größte Demokratie der Welt, Schwellenland, G20, Kolonialherrschaft, Ghandi. Man verbindet viele Begriffe mit Indien. Doch dass diese letztlich nur ein schwaches Schlaglicht auf das in jeder Hinsicht enorme Land werfen, ist klar. Wie der Zufall es will, hat es mich unlängst für 7 Tage nach Indien verschlagen. Nein, ich habe nicht in einem Radiogewinnspiel gewonnen, aber es spielte sich in etwa ähnlich ab. Hauptgrund der Reise war der Flugpreis von 200 Euro, da es sich um eine sogenannte Errorfare handelte. Also keine hochtrabenden Weltendeckerambitionen, Selbstfindungsfantasien oder ungestüme Abenteuerlust – schlicht schnöde weltlicher Ökonomismus. Daher folgt eine kleine Abhandlung über Indien in 7 Tagen.<br/></p>
+
+<a href="/bpbahn/2017/04/21/indien-oder-jedenfalls-ein-winziger-teil-davon.html">...mehr lesen</a>
+      </div>
+      <div class="post-meta post-tags">
+        
+          <a href="/tags/#travel" class="post-tag"> travel </a>
+        
+          <a href="/tags/#india" class="post-tag"> india </a>
+        
+      </div>
+    </article>
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2016/09/12/hong-kong-hilfe-hedonismus.html">Hong Kong - Hilfe Hedonismus?!</a></h1>
+        <p class="post-meta">
+          <time datetime="2016-09-12T00:00:00+00:00" itemprop="datePublished">
+            
+            Sep 12, 2016
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Florian Henschel</span></span>
+          
+          
+            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="bpbahn/index.html">bpbahn</a></span></span>
+          
+        </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>[Fotos kommen später noch, es müssen erst einmal die Gifs genügen]<b><br/></b></p><p>Die eindrücklichste Wahrnehmung meines ersten Tages, war nicht die drückende Hitze, die vielen Menschen,  - nein - es war der Geruch. Es ist schwer festzumachen, jedenfalls kommt es wahrscheinlich durch die andere Küche zustande. Generell bemerkt man verschiedenste Gerüche, wenn man auf den Straßen unterwegs ist. Mir fielen sie eher unangnehm auf, aber auch hier zeigt sich, wie adaptiv das menschlichen Gehirn ist: Rund 4 Tage später bemerke ich davon fast nichts mehr. Die ersten zwei Tage verlaufen im Zeitraffer und bestehen in der Hauptsache aus holprigen Orientierungsversuchen. Beginnen wir daher doch bei Tag 3.</p>
+
+<a href="/bpbahn/2016/09/12/hong-kong-hilfe-hedonismus.html">...mehr lesen</a>
+      </div>
+      <div class="post-meta post-tags">
+        
+          <a href="/tags/#travel" class="post-tag"> travel </a>
+        
+          <a href="/tags/#hong-kong" class="post-tag"> hong kong </a>
+        
+      </div>
+    </article>
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/bpgetimed/2016/09/06/es-beginnt-mit-dem-anfang.html">Es beginnt mit dem Anfang</a></h1>
+        <p class="post-meta">
+          <time datetime="2016-09-06T00:00:00+00:00" itemprop="datePublished">
+            
+            Sep 6, 2016
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Noel Danz</span></span>
+          
+          
+            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="bpgetimed/index.html">bpgetimed</a></span></span>
+          
+        </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Dies ist der Anfang, nur von was genau? Eine Reise, die ist lustig wussten schon die bärbeißigen Seemänner ehedem zu singen. Wenn man zu einer Reise aufbricht, so kommt man als anderer Mensch zurück ist eine weitere lediglich geringfügig tiefsinnigere Binsenweisheit. Und “Erst in der Fremde, erkennt man sich selbst” ist das selbe in Grün. Alles konzeptloses, selbstbezogenes Gellale, könnte man zurecht einwenden. Dennoch wünsche ich mir irgendwie eben das.
+Vor zwei Jahren bin ich das letzte mal länger allein verreist, seit dem ist viel passiert. Ich habe mich verändert, die Welt hat sich verändert. Ich hoffe bei meinem einmonatigen Trip durch Hong Kong, China und Südkorea offener und neugieriger zu sein. Einher geht mein gewachsener Anspruch mich weniger vor historischen und politischen Dimensionen zu verschließen.</p>
+
+<a href="/bpgetimed/2016/09/06/es-beginnt-mit-dem-anfang.html">...mehr lesen</a>
+      </div>
+      <div class="post-meta post-tags">
+        
+          <a href="/tags/#ci" class="post-tag"> ci </a>
+        
+          <a href="/tags/#gitlab" class="post-tag"> gitlab </a>
+        
+      </div>
+    </article>
+
+<!-- Pagination links -->
+
+  <div class="pagination">
+    
+      <span>&laquo; Neuer</span>
+    
+
+    
+      
+        <em>1</em>
+      
+    
+      
+        <a href="/page2">2</a>
+      
+    
+
+    
+      <a href="/page/2/">Älter &raquo;</a>
+    
+  </div>
+
+
+  <p class="rss-subscribe">abbonieren <a href="/feed.xml">via RSS</a></p>
+
+</div>
+
+      </div>
+    </main>
+<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+
+
+  <div style="text-align: center">
+    <span><a href="mailto:marcusding@me.com"><span class="username"><i class="fa fa-envelope" aria-hidden="true"></i> mail</span></a></span>
+    <span><a href="https://www.facebook.com/kryptokommunist"><span class="username"><i class="fa fa-facebook-square" aria-hidden="true"></i> stalk</span></a></span>
+    <span><a href="https://www.letterboxd.com/kryptokommunist"><span class="username"><i class="fa fa-film" aria-hidden="true"></i> follow</span></a></span>
+    <span><a href="https://www.github.com/kryptokommunist"><i class="fa fa-github-square" aria-hidden="true"></i> judge</span></a></span>
+    <span><a href="https://www.flickr.com/photos/kryptokommunist/"><span class="username"><i class="fa fa-flickr" aria-hidden="true"></i> see</span></a></span>
+  </div>
+</div>
+</footer>
+<div class="madewith">
+  <span class="post-meta">powered by <a href="https://github.com/kryptokommunist/kryptokommunist.github.io/tree/jekyll">jekyll</a></span>
+</div>
+</body>
+
+</html>

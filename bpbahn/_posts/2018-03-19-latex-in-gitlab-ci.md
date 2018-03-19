@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Latex in Gitlab
+title: Automating in Gitlab-CI
 category: bpbahn
 author: Marcus Ding
 tags:
@@ -8,6 +8,14 @@ tags:
 - latex
 - python
 ---
+
+## The problem
+
+You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. This makes you very sad. You ask yourself: What could I do about it?
+
+![Cooles Symbolbild](https://hpi.de/fileadmin/user_upload/hpi/bilder/teaser_channels/studenten/students_2_boys_girl_main_entrance_1020x420.jpg "Cooles Symbolbild")
+
+## The solution
 
 {% highlight python %}
 def compile_pdfs(self):

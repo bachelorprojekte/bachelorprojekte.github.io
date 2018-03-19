@@ -8,7 +8,7 @@ The [.travis.yml file](https://github.com/bachelorprojekte/bachelorprojekte.gith
 
 If you want to use this as a template just generate an github access token.  Then
 
-- `git clone git@github.com:kryptokommunist/kryptokommunist.github.io.git`
+- `git clone git@github.com:bachelorprojekte/bachelorprojekte.github.io.git`
 - `git checkout jekyll`
 - remove the last three lines from the [.travis.yml file](https://github.com/bachelorprojekte/bachelorprojekte.github.io/blob/jekyll/.travis.yml)
 - generate a personal [github token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)

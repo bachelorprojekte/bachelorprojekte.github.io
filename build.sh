@@ -13,19 +13,19 @@ set -e
 bundle exec jekyll build
 
 # cleanup
-rm -rf ../kryptokommunist.github.io.master
+rm -rf ../bachelorprojekte.github.io.master
 
 #clone `master' branch of the repository using encrypted GH_TOKEN for authentification
-git clone https://${GH_TOKEN}@github.com/kryptokommunist/kryptokommunist.github.io.git ../kryptokommunist.github.io.master
+git clone https://${GH_TOKEN}@github.com/bachelorprojekte/bachelorprojekte.github.io.git ../bachelorprojekte.github.io.master
 
 # copy generated HTML site to `master' branch
-cp -R _site/* ../kryptokommunist.github.io.master
+cp -R _site/* ../bachelorprojekte.github.io.master
 
 # commit and push generated content to `master' branch
 # since repository was cloned in write mode with token auth - we can push there
-cd ../kryptokommunist.github.io.master
-git config user.email "kryptokommunist@icloud.com"
-git config user.name "Marcus Ding"
+cd ../bachelorprojekte.github.io.master
+git config user.email "bachelorprojekte@lol.de"
+git config user.name "Bachelorprojekt"
 git add -A .
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
 git push --quiet origin master > /dev/null 2>&1

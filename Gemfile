@@ -27,11 +27,14 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# Added at 2018-01-20 22:43:17 +0100 by kryptokommunist:
-gem "jekyll-paginate", "~> 1.1"
-
 # Added at 2018-01-21 18:44:45 +0100 by kryptokommunist:
 gem "jekyll-sitemap", "~> 1.1"
 
 # Added at 2018-01-21 18:45:49 +0100 by kryptokommunist:
 gem "jekyll-seo-tag", "~> 2.4"
+
+# Added at 2018-03-19 14:06:20 +0100 by root:
+gem "jekyll-paginate-v2", "~> 1.9"
+
+# Added at 2018-03-19 15:25:19 +0100 by kryptokommunist:
+gem "pygments.rb", "~> 1.2"

@@ -4,6 +4,6 @@ title: About
 permalink: /about/
 ---
 
-![Cooles Symbolbild](https://farm5.staticflickr.com/4521/38368540892_7d496429ad_k.jpg "Cooles Symbolbild")
+![Cooles Symbolbild](https://hpi.de/fileadmin/user_upload/hpi/bilder/teaser_channels/studenten/students_2_boys_girl_main_entrance_1020x420.jpg "Cooles Symbolbild")
 
-Hier schreibe ich meine Gedanken auf, Berichte von Reisen, Beschreibung von Nerd-Bastelprojekten und anderen Unfug. Keine Sorge, natürlich versuche ich die Gedanken so gut es geht zu sortieren, dann wasche und poliere ich sie noch, um sie (zum Trocknen) hier – ganz exhibitionistisch – ins Internet zu hängen. Letztlich darf man nicht zuviel erwarten, immerhin habe ich studiert.
+Hier schreiben die Bachelorprojekte des [HPIs](https://hpi.de) Jahrgang 2017. Dieser Blog ist inoffiziell und wird nicht vom HPI betrieben.

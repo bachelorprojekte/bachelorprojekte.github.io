@@ -13,20 +13,19 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Ein Kaffeehauskommunist erzählt
+title: HPI Bachelorprojekte 2017
 email:
 description: >- # this means to ignore newlines until "baseurl:"
-  Ich bin voll kreativ und cool, Berlin blabla hip, Neukölln, Jutebeutel yada
-  yada... Ok ok, die Seite dient bloß dem shameless self-plugging!
+  Bachelorprojekte informieren über heißen Scheiß
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-author: Marcus Ding
+author: admin
 # Build settings
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
-  - jekyll-paginate
+  - jekyll-paginate-v2
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-font-awesome-sass
@@ -35,7 +34,25 @@ lunr_search:
   excludes: [rss.xml, atom.xml]
 font-awesome:
   assets: true
-paginate: 6
+pagination:
+  sort_reverse: true
+  enabled: true
+  per_page: 6
+  permalink: '/page/:num/'
+autopages:
+  enabled: true
+  categories:
+    layouts:
+      - autopage_cat.html
+    enabled: true
+    title: ':cat'
+    # Optional, the permalink for the  pagination page (:cat is replaced),
+    # the pagination permalink path is then appended to this permalink structure
+    permalink: '/category/:cat'
+  collections:
+    enabled: false
+  tags:
+    enabled: false
 excerpt_separator: "<!--more-->"
 sass:
   load_paths: _sass

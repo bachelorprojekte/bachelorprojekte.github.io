@@ -24,8 +24,8 @@ cp -R _site/* ../bachelorprojekte.github.io.master
 # commit and push generated content to `master' branch
 # since repository was cloned in write mode with token auth - we can push there
 cd ../bachelorprojekte.github.io.master
-git config user.email "marcusding@icloud.com"
-git config user.name "Marcus Ding"
+git config user.email "bachelorprojekte@lol.lol"
+git config user.name "bachelorprojekte"
 git add -A .
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
 git push --quiet origin master > /dev/null 2>&1

@@ -1,14 +1,11 @@
 ---
 layout: home
 ---
-<!-- Just some nice to have styles for the pager buttons -->
-<style>
-  ul.pager { text-align: center; list-style: none; }
-  ul.pager li {display: inline;border: 1px solid black; padding: 10px; margin: 5px;}
-</style>
 
-<div class="home">
+{% if page.autopages %}
+<span class="autopages-heading">
+<h1><b>{{page.autopage.display_name}}</b> • <a href="/{{page.autopage.display_name}}/about">about</a></h1>
+</span>
+{% endif %}
 
-  <h1 class="page-heading"><b>{% if page.autopages %}{{page.autopage.display_name}}{% endif %}</b></h1>
-
-  {{ content | markdownify }}
+{{ content | markdownify }}

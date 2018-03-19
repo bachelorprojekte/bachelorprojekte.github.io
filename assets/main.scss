@@ -17,6 +17,10 @@ $fa-font-path: "fonts/font-awesome/";
   margin-right:auto;
 }
 
+.image-table table, td {
+    border: none !important;
+}
+
 .post .caption {
   text-align: center;
 }
@@ -104,4 +108,8 @@ iframe {
     border-radius: 4px;
     border: 1px solid #2a7ae2;
     margin-bottom: 1em
+}
+
+.autopages-heading {
+  text-align: right;
 }

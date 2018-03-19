@@ -1,4 +1,4 @@
-# Repo for [bachelorprojekte.github.io](https://bachelorprojekte.github.io) [![Build Status](https://travis-ci.org/kryptokommunist/bachelorprojekte.github.io.svg?branch=jekyll)](https://travis-ci.org/bachelorprojekte/bachelorprojekte.github.io)
+# Repo for [bachelorprojekte.github.io](https://bachelorprojekte.github.io) [![Build Status](https://travis-ci.org/bachelorprojekte/bachelorprojekte.github.io.svg?branch=jekyll)](https://travis-ci.org/bachelorprojekte/bachelorprojekte.github.io)
 
 This is the repo for our bachelor project blogs powered by static site generator [jekyll](https://jekyllrb.com) and [github pages](https://pages.github.com).
 

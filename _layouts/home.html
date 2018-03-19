@@ -20,7 +20,7 @@ layout: default
             • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ post.author }}</span></span>
           {% endif %}
           {% if page.autopage == nil and post.category %}
-            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="{{ post.category }}/index.html">{{ post.category }}</a></span></span>
+            • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="category/{{ post.category }}/index.html">{{ post.category }}</a></span></span>
           {% endif %}
         </p>
       </header>

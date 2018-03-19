@@ -2,6 +2,18 @@
 
 This is the repo for our bachelor project blogs powered by static site generator [jekyll](https://jekyllrb.com) and [github pages](https://pages.github.com).
 
+## Testing the site on your local machine
+
+ - install [Ruby](https://www.ruby-lang.org/de/documentation/installation/) if not present
+ - git clone git@github.com:bachelorprojekte/bachelorprojekte.github.io.git
+ - git checkout jekyll
+ - gem install jekyll bundler
+ - bundle install
+ - bundle exec jekyll serve
+ 
+Then visit the generated site on the displayed local address (Should be [http://127.0.0.1:4000](http://127.0.0.1:4000))
+
+
 ## Auto deployment on [Travis-CI](https://travis-ci.org)
 
 The [.travis.yml file](https://github.com/bachelorprojekte/bachelorprojekte.github.io/blob/jekyll/.travis.yml) is configured to execute the [build.sh](https://github.com/bachelorprojekte/bachelorprojekte.github.io/blob/jekyll/build.sh) with each push to the jekyll branch. The jekyll site will be generated and pushed to the master branch of the repository.

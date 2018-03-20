@@ -1,0 +1,10 @@
+<time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+  {% assign date_format = include.site.minima.date_format | default: "%b %-d, %Y" %}
+  {{ post.date | date: date_format }}
+</time>
+{% if include.post.author %}
+  • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{% include search_link.html query=include.post.author text=include.post.author %}</span></span>
+{% endif %}
+{% if include.page.autopage == nil and post.category %}
+  • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="category/{{ include.post.category }}/index.html">{{ include.post.category }}</a></span></span>
+{% endif %}

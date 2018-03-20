@@ -1,1 +1,1 @@
-<a href="/search/?query={{ include.query | split: ' ' | join '+' }}">{{ include.text }}</a>
+<a href="/search/?query={{ include.query | url_encode }}">{{ include.text }}</a>

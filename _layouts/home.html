@@ -17,7 +17,7 @@ layout: default
             {{ post.date | date: date_format }}
           </time>
           {% if post.author %}
-            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ post.author }}</span></span>
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{% include search_link.html query=post.author text=post.author %}</span></span>
           {% endif %}
           {% if page.autopage == nil and post.category %}
             • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="category/{{ post.category }}/index.html">{{ post.category }}</a></span></span>

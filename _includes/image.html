@@ -1,6 +1,11 @@
+{% assign link_open_start = include.description|split: '<a'%}
+{% assign link_open_end = link_open_start[1]| split: '>'%}
+{% assign link_content_array = link_open_end[1]| split: '</a'%}
+{% assign link_content = link_content_array[0]%}
+
 <div class="image-table">
 <table class="image-table">
 <caption align="bottom">{{ include.description }}</caption>
-<tr><td><img src="{{ include.url }}" alt="{{ include.description }}"/></td></tr>
+<tr><td><img src="{{ include.url }}" alt="{{ link_content }}"/></td></tr>
 </table>
 </div>

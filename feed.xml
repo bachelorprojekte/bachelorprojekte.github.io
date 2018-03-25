@@ -1,38 +1,354 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-03-25T21:56:14+00:00</updated><id>/</id><title type="html">HPI Bachelorprojekte 2017</title><subtitle>Bachelorprojekte informieren über heißen Scheiß</subtitle><author><name>admin</name></author><entry><title type="html">Automating in Gitlab-CI</title><link href="/bpbahn/2018/03/19/latex-in-gitlab-ci.html" rel="alternate" type="text/html" title="Automating in Gitlab-CI" /><published>2018-03-19T00:00:00+00:00</published><updated>2018-03-19T00:00:00+00:00</updated><id>/bpbahn/2018/03/19/latex-in-gitlab-ci</id><content type="html" xml:base="/bpbahn/2018/03/19/latex-in-gitlab-ci.html">&lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-03-25T21:58:55+00:00</updated><id>/</id><title type="html">HPI Bachelorprojekte 2017</title><subtitle>Bachelorprojekte informieren über heißen Scheiß</subtitle><author><name>admin</name></author><entry><title type="html">Hyperledger: Linux + blockchain = ❤️?</title><link href="/bpbahn/2018/03/20/hyperledger.html" rel="alternate" type="text/html" title="Hyperledger: Linux + blockchain = ❤️?" /><published>2018-03-20T00:00:00+00:00</published><updated>2018-03-20T00:00:00+00:00</updated><id>/bpbahn/2018/03/20/hyperledger</id><content type="html" xml:base="/bpbahn/2018/03/20/hyperledger.html">&lt;p&gt;Hyperledger is a project created by the Linux Foundation as an umbrella for open source projects that support enterprise-ready blockchain technology. Hyperledger is comparable to Apache regarding the fact that it is a community of communities.&lt;/p&gt;
 
-&lt;p&gt;You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. This makes you very sad. You ask yourself: What could I do about it?&lt;/p&gt;
+&lt;h3 id=&quot;permissioned-blockchain&quot;&gt;permissioned blockchain&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://hpi.de/fileadmin/user_upload/hpi/bilder/teaser_channels/studenten/students_2_boys_girl_main_entrance_1020x420.jpg&quot; alt=&quot;Cooles Symbolbild&quot; title=&quot;Cooles Symbolbild&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Unlike with permissionless blockchains as for example Bitcoin or Ethereum, parties joining the network must be authenticated and authorized on a permissioned blockchain network.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h3 id=&quot;blockchain-in-business&quot;&gt;blockchain in business&lt;/h3&gt;
+
+&lt;p&gt;Blockchain frameworks enable information sharing between independent parties without the need to trust each other e.g. competitors in an industry. Consensus algorithms ensure that the network agrees on the stored information. It can threaten business models where the value comes from centrally confirming the authenticity of information.&lt;/p&gt;
+
+&lt;h3 id=&quot;related-projects&quot;&gt;related projects&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://chain.com&quot;&gt;Chain Core&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.corda.net&quot;&gt;Corda&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jpmorgan.com/country/US/EN/Quorum&quot;&gt;Quorum&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@MartinRosulek/how-iota-makes-future-for-internet-of-things-af14fd77d2a3&quot;&gt;IOTA&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;comparison&quot;&gt;comparison&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Bitcoin&lt;/th&gt;
+      &lt;th&gt;Ethereum&lt;/th&gt;
+      &lt;th&gt;Hyperledger Frameworks&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Cryptocurrency based&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Permissioned&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Yes (in general)*&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Pseudo-anonymous&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Auditable&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Immutable ledger&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Modularity&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Smart contracts&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Consensus protocol&lt;/td&gt;
+      &lt;td&gt;PoW&lt;/td&gt;
+      &lt;td&gt;Pow&lt;/td&gt;
+      &lt;td&gt;Various**&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*Sawtooth can be configured to be permissionless&lt;/p&gt;
+
+&lt;p&gt;**Key Hyperledger consensus protocols are Apache Kafka in Hyperledger Fabric, PoET in Hyperledger Sawtooth, RBFT in Hyperledger Indy, Tendermint in Hyperledger Burrow, and Yet Another Consensus (YAC) in Hyperledger Iroha. For more details, see the &lt;a href=&quot;https://www.hyperledger.org/wp-content/uploads/2017/08/HyperLedger_Arch_WG_Paper_1_Consensus.pdf&quot;&gt;Hyperledger Architecture, Volume 1 paper&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;open-source-approach&quot;&gt;open source approach&lt;/h3&gt;
+
+&lt;p&gt;The Hyperledger frameworks are developed as open source projects. Developers from many companies and backgrounds contribute to the code base. The hope is that this leads to higher quality, more secure and long maintained code. Most importantly the goal is developing the code in a trustworthy way. Since these blockchain technologies aim to fulfill their function at the core of enterprises this is of tremendous importance.&lt;/p&gt;
+
+&lt;h3 id=&quot;different-frameworks&quot;&gt;different frameworks&lt;/h3&gt;
+
+&lt;p&gt;There are Burrow, Fabric, Iroha, Sawtooth and Indy. They overlap in some ways but each one offers unique features.&lt;/p&gt;
+
+&lt;h3 id=&quot;modules&quot;&gt;modules&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.hyperledger.org/projects/cello&quot;&gt;Hyperledger Cello&lt;/a&gt; is a toolkit to provision and maintain Hyperledger networks.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.hyperledger.org/projects/explorer&quot;&gt;Hyperledger Explorer&lt;/a&gt; is a tool to visualize blockchain operations.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.hyperledger.org/projects/composer&quot;&gt;Hyperledger Composer&lt;/a&gt; is a framework to accelerate the developement of applications on top of Hyperledger Fabric starting from business level (modeling network assets, participants and transactions). A very informative example application presentation can be found &lt;a href=&quot;https://www.youtube.com/watch?v=cNvOQp8r0xo&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;when-does-hyperledger-make-sense&quot;&gt;When does Hyperledger make sense?&lt;/h2&gt;
+
+&lt;p&gt;If you think of using a distributed ledger technology, you should think of an industry-wide approach from the earliest day. These are indicators in favor of using such a system:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;There is a need for a shared common database&lt;/li&gt;
+  &lt;li&gt;The parties involved with the process have conflicting incentives, or do not have trust among participants&lt;/li&gt;
+  &lt;li&gt;There are multiple parties involved or writers to a database&lt;/li&gt;
+  &lt;li&gt;There are currently trusted third parties involved in the process that facilitate interactions between multiple parties who must trust the third party. This could include escrow services, data feed providers, licensing authorities, or a notary public&lt;/li&gt;
+  &lt;li&gt;Cryptography is currently being used or should be used. Cryptography facilitates data confidentiality, data integrity, authentication, and non-repudiation&lt;/li&gt;
+  &lt;li&gt;Data for a business process is being entered into many different databases along the lifecycle of the process. It is important that this data is consistent across all entities, and/or digitization of such a process is desired&lt;/li&gt;
+  &lt;li&gt;There are uniform rules governing participants in the system&lt;/li&gt;
+  &lt;li&gt;Decision making of the parties is transparent, rather than confidential&lt;/li&gt;
+  &lt;li&gt;There is a need for an objective, immutable history or log of facts for parties’ reference&lt;/li&gt;
+  &lt;li&gt;Transaction frequency does not exceed 10,000 transactions per second&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But be aware of these issues that indicate blockchain might be the wrong solution:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The process involves confidential data&lt;/li&gt;
+  &lt;li&gt;The process stores a lot of static data, or the data is quite large&lt;/li&gt;
+  &lt;li&gt;Rules of transactions change frequently&lt;/li&gt;
+  &lt;li&gt;The use of external services to gather/store data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;How to determine if blockchain makes sense for your business (&lt;a href=&quot;https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFS171x+3T2017/course/&quot;&gt;source&lt;/a&gt;)&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/hyperledger_flowchart.png&quot; alt=&quot;source&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;</content><author><name>Marcus Ding</name></author><category term="bpbahn" /><category term="hyperledger" /><category term="blockchain" /><summary type="html">Hyperledger is a project created by the Linux Foundation as an umbrella for open source projects that support enterprise-ready blockchain technology. Hyperledger is comparable to Apache regarding the fact that it is a community of communities. permissioned blockchain Unlike with permissionless blockchains as for example Bitcoin or Ethereum, parties joining the network must be authenticated and authorized on a permissioned blockchain network.</summary></entry><entry><title type="html">Automating LaTeX compilation in Gitlab-CI</title><link href="/bpbahn/2018/03/19/latex-in-gitlab-ci.html" rel="alternate" type="text/html" title="Automating LaTeX compilation in Gitlab-CI" /><published>2018-03-19T00:00:00+00:00</published><updated>2018-03-19T00:00:00+00:00</updated><id>/bpbahn/2018/03/19/latex-in-gitlab-ci</id><content type="html" xml:base="/bpbahn/2018/03/19/latex-in-gitlab-ci.html">&lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
+
+&lt;p&gt;You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. Also you want to email your assignments to your tutors. But you are already annoyed by writing commit messages. Opening your email client and dragging and dropping that PDF, for you it’s pain in it’s purest form. This makes you very sad. You ask yourself: What could I do about it?&lt;/p&gt;
+
+&lt;!--more--&gt;
 
 &lt;h2 id=&quot;the-solution&quot;&gt;The solution&lt;/h2&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compile_pdfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;compile every TeX file in each repository subfolder&quot;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;second_level_items&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_level_dirs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove_exempt_folders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_level_dirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;p&gt;Combining some Python scripting and GitLab-CI configs results in a nice pipeline that processes LaTeX documents automatically while enforcing a certain folder structure. No more garbage and no more pain. Find the &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline&quot;&gt;example repo here&lt;/a&gt;.&lt;/p&gt;
 
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first_level_dir&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_level_dirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;dir_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;relative_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first_level_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;files_folders&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_files_folders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;second_level_items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_level_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;files_folders&lt;/span&gt;
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;The working &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/pipelines&quot;&gt;GitLab CI pipeline&lt;/a&gt;&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/gitlab-ci.png&quot; alt=&quot;GitLab CI pipeline&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second_level_items&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enforce_compliance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;The script output&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/gitlab-ci-out.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second_level_items&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;main_filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;.tex&quot;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;folderpath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;relative_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cd &quot;{fp}&quot; &amp;amp;&amp;amp; latexmk -output-directory=../latex_output -pdf &quot;{f}&quot;'&lt;/span&gt;\
-            &lt;span class=&quot;s&quot;&gt;&quot; -e '$pdflatex=q/pdflatex &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;O -shell-escape &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;S/'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;\
-            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folderpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;sccmsg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[92mCompiled &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[94m{d}.tex&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[92m successfully&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[0m&quot;&lt;/span&gt;\
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sccmsg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;errmsg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[91mError with compiling &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[94m{d}.tex&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[0m&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cmd: {c}&quot;&lt;/span&gt;\
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error_notify_and_exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errmsg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>Marcus Ding</name></author><category term="bpbahn" /><category term="gitlab-ci" /><category term="latex" /><category term="python" /><summary type="html">The problem You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. This makes you very sad. You ask yourself: What could I do about it? The solution def compile_pdfs(self): &quot;&quot;&quot;compile every TeX file in each repository subfolder&quot;&quot;&quot; second_level_items = {} self.first_level_dirs = self.remove_exempt_folders(self.first_level_dirs) for first_level_dir in self.first_level_dirs: dir_path = join(self.relative_path, first_level_dir) files_folders = get_files_folders(dir_path) second_level_items[first_level_dir] = files_folders for dir_name, data in second_level_items.items(): self.enforce_compliance(dir_name, data) for dir_name, data in second_level_items.items(): main_filename = dir_name + &quot;.tex&quot; folderpath = join(self.relative_path, dir_name) cmd = ('cd &quot;{fp}&quot; &amp;amp;&amp;amp; latexmk -output-directory=../latex_output -pdf &quot;{f}&quot;'\ &quot; -e '$pdflatex=q/pdflatex %O -shell-escape %S/'&quot;)\ .format(fp=folderpath, f=main_filename) if call(cmd, shell=True) == 0: sccmsg = &quot;\033[92mCompiled \033[94m{d}.tex\033[92m successfully\033[0m&quot;\ .format(d=dir_name) print(sccmsg) else: errmsg = &quot;\033[91mError with compiling \033[94m{d}.tex\033[0m\ncmd: {c}&quot;\ .format(d=dir_name, c=cmd) self.error_notify_and_exit(errmsg)</summary></entry><entry><title type="html">Example entry 1</title><link href="/bpexample/2018/03/05/example-entry-1.html" rel="alternate" type="text/html" title="Example entry 1" /><published>2018-03-05T00:00:00+00:00</published><updated>2018-03-05T00:00:00+00:00</updated><id>/bpexample/2018/03/05/example-entry-1</id><content type="html" xml:base="/bpexample/2018/03/05/example-entry-1.html">&lt;h2 id=&quot;include-images&quot;&gt;Include Images&lt;/h2&gt;
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;The uploaded resulting artifacts &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/-/jobs/57720189/artifacts/browse&quot;&gt;accessible in GitLab&lt;/a&gt;&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/gitlab-ci-artifacts.png&quot; alt=&quot;accessible in GitLab&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;email&quot;&gt;Email&lt;/h3&gt;
+
+&lt;p&gt;For emailing a document for example to your tutors the &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline/latexpipeline.py&quot;&gt;scripts/pipeline/latexpipeline.py&lt;/a&gt; submodule will parse the commit message and search for the &lt;code class=&quot;highlighter-rouge&quot;&gt;--final&lt;/code&gt; flag. In our example the commit message&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Add my assignment no 5 --final assignment_papers/documentfoldername --comment Sorry for my late submission, it will not happen again! 😇💋
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;would result in an raw text email being sent to the recipient specified in &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline_script.py&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scripts/pipeline_script.py&lt;/code&gt;&lt;/a&gt; with the email of the GitLab User being CCed as Reply-To.&lt;/p&gt;
+
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;The mail being sent to the address defined in &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline_script.py&quot;&gt;scripts/pipeline_script.py&lt;/a&gt;&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/gitlab-ci-mail.png&quot; alt=&quot;scripts/pipeline_script.py&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;telegram-and-iftt&quot;&gt;Telegram and IFTT&lt;/h3&gt;
+
+&lt;p&gt;With a little help by &lt;a href=&quot;https://ifttt.com&quot;&gt;IFTTT.com&lt;/a&gt; it’s very easy to integrate Telegram notifications into the system using a bot. One benefit is certainly shaming users into testing their TeX files before submitting them knowing that their utter failure will be public.&lt;/p&gt;
+
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;Exemplary Telegram notifications about successes and failures&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/gitlab-ci-telegram.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;The applets for the bachelorprojects Telegram group including the Webhook based applet forwarding messages to the Telegram bot.&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/gitlab-ci-ifttt.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;a-short-intro-to-gitlab-ci&quot;&gt;A short intro to GitLab CI&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.gitlab.com/ce/ci/README.html&quot;&gt;GitLab CI&lt;/a&gt; is like any other continuous integration platform with the additional feature of &lt;a href=&quot;https://docs.gitlab.com/ee/user/project/pipelines/job_artifacts.html&quot;&gt;job artifacts&lt;/a&gt;. This means a job can produce files as output that will be stored and and can be directly linked to on the GitLab platform. Of course this is ideal for our LaTeX pipeline. Let’s take a look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;compile_pdf&lt;/code&gt; stage:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;na&quot;&gt;compile_pdf&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;stage&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;compile_pdf&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;before_script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;rm -rf htmlcov&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;python3 scripts/pipeline_script.py run &quot;$GITLAB_USER_NAME&quot; $CI_JOB_ID &quot;$(git log -1 --pretty=%B)&quot; $GITLAB_USER_EMAIL $CI_PROJECT_URL&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;single_pdfs&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;assignment_papers/latex_output&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;letters/latex_output&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;artifacts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;assignment_papers/*.pdf&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;letters/*.pdf&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;only&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;master&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;First it executes the &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline_script.py&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scripts/pipeline_script.py&lt;/code&gt;&lt;/a&gt; script. The necessary arguments are the &lt;a href=&quot;https://docs.gitlab.com/ce/ci/variables/README.html&quot;&gt;GitLab variables&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;$GITLAB_USER_NAME&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$CI_JOB_ID&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$GITLAB_USER_EMAIL&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;$CI_PROJECT_URL&lt;/code&gt; as well as the current commit message: &lt;code class=&quot;highlighter-rouge&quot;&gt;$(git log -1 --pretty=%B)&lt;/code&gt;. The executed &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline_script.py&quot;&gt;scripts/pipeline_script.py&lt;/a&gt; will write all files resulting from document compilation to &lt;code class=&quot;highlighter-rouge&quot;&gt;assignment_papers/latex_output/*&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;letters/latex_output/*&lt;/code&gt; and copy the PDFs to &lt;code class=&quot;highlighter-rouge&quot;&gt;assignment_papers/*.pdf&lt;/code&gt; and `letters/*.pdf/.&lt;/p&gt;
+
+&lt;p&gt;Setting the key &lt;code class=&quot;highlighter-rouge&quot;&gt;cache&lt;/code&gt; results in all files specified under &lt;code class=&quot;highlighter-rouge&quot;&gt;paths&lt;/code&gt; being cached between job runs given you’re using a dedicated &lt;a href=&quot;https://docs.gitlab.com/ce/ci/runners/README.html&quot;&gt;GitLab runner&lt;/a&gt;. Alos it will speed up compilation because documents will only be recompiled if there’s a change. In our example case it reduced the runtime from 5 minutes to just 1 minute. Unfortunately the free shared runners on gitlab.com don’t allow this. But what about the &lt;a href=&quot;https://docs.gitlab.com/ee/user/project/pipelines/job_artifacts.html&quot;&gt;job artifacts&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline_script.py&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scripts/pipeline_script.py&lt;/code&gt;&lt;/a&gt; script will copy the resulting PDFs from &lt;code class=&quot;highlighter-rouge&quot;&gt;foldername/latex_output/*pdf&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;foldername/*.pdf&lt;/code&gt;. This happens at the &lt;code class=&quot;highlighter-rouge&quot;&gt;PIPELINE.move_pdfs()&lt;/code&gt; function call. Thus we specify under &lt;code class=&quot;highlighter-rouge&quot;&gt;artifacts&lt;/code&gt; the &lt;code class=&quot;highlighter-rouge&quot;&gt;paths&lt;/code&gt; where GitLab CI will look for matching files to store them as artifacts.&lt;/p&gt;
+
+&lt;div class=&quot;image-table&quot;&gt;
+&lt;table class=&quot;image-table&quot;&gt;
+&lt;caption align=&quot;bottom&quot;&gt;Processing time without caching and with enabled caching.&lt;/caption&gt;
+&lt;tr&gt;&lt;td&gt;&lt;img src=&quot;/bpbahn/images/gitlab-ci-caching.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;what-does-the-script-do&quot;&gt;What does the script do?&lt;/h3&gt;
+
+&lt;p&gt;Ultimately after checking that the folder structures are compliant the script will execute the following lines in the &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline/latexpipeline.py&quot;&gt;scripts/pipeline/latexpipeline.py&lt;/a&gt; submodule:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second_level_items&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;main_filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;.tex&quot;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;folderpath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;relative_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cd &quot;{fp}&quot; &amp;amp;&amp;amp; latexmk -output-directory=../latex_output -pdf &quot;{f}&quot;'&lt;/span&gt;\
+                &lt;span class=&quot;s&quot;&gt;&quot; -e '$pdflatex=q/pdflatex &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;O -shell-escape &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;S/'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;\
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folderpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;sccmsg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[92mCompiled &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[94m{d}.tex&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[92m successfully&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[0m&quot;&lt;/span&gt;\
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sccmsg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;errmsg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[91mError with compiling &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[94m{d}.tex&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[0m&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cmd: {c}&quot;&lt;/span&gt;\
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error_notify_and_exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errmsg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The dictionary &lt;code class=&quot;highlighter-rouge&quot;&gt;second_level_items&lt;/code&gt; contains all but the exempted subfolders in a valid root subdirectory. Now all it does for a folder called &lt;code class=&quot;highlighter-rouge&quot;&gt;documentfoldername&lt;/code&gt; residing in &lt;code class=&quot;highlighter-rouge&quot;&gt;assignment_papers&lt;/code&gt; is executing these commands:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;documentfoldername
+latexmk &lt;span class=&quot;nt&quot;&gt;-output-directory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;../latex_output &lt;span class=&quot;nt&quot;&gt;-pdf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;documentfoldername.tex&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'$pdflatex=q/pdflatex %O -shell-escape %S/'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;After executing the script will print a success message. If the command fails it will notify about this and exit with an error so that the GitLab job will fail.&lt;/p&gt;
+
+&lt;h2 id=&quot;enforcing-folder-rules&quot;&gt;Enforcing folder rules&lt;/h2&gt;
+
+&lt;p&gt;The script &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline_script.py&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scripts/pipeline_script.py&lt;/code&gt;&lt;/a&gt; enforces a folder structure like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.
+|
++--assignment_papers
+|  +--documentfoldername
+|  |  +--figures
+|  |  |  +--example.png
+|  |  +--documentfoldername.tex
+|  |  +--preamble.tex
+|  |  +--content.tex
+|  +--otherdocumentfoldername
+|  |  +--figures
+|  |  |  +--example.pdf
+|  |  +--otherdocumentfoldername.tex
+|  |  +--preamble.tex
+|  |  +--content.tex
++--letters
+|  +--documentfoldername
+|  |  +--figures
+|  |  |  +--example.jpg
+|  |  +--documentfoldername.tex
+|  +--otherdocumentfoldername
+|  |  +--figures
+|  |  |  +--example.jpg
+|  |  +--otherdocumentfoldername.tex
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;there can be multiple folders the root directory
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assignment_papers&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;subfolders must contain &lt;code class=&quot;highlighter-rouge&quot;&gt;.tex&lt;/code&gt; files with the same name&lt;/li&gt;
+          &lt;li&gt;subfolders must contain &lt;code class=&quot;highlighter-rouge&quot;&gt;preamble.tex&lt;/code&gt; file&lt;/li&gt;
+          &lt;li&gt;subfolders must contain &lt;code class=&quot;highlighter-rouge&quot;&gt;content.tex&lt;/code&gt; file&lt;/li&gt;
+          &lt;li&gt;subfolders may contain a figures folder&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;letters&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;subfolders must contain &lt;code class=&quot;highlighter-rouge&quot;&gt;.tex&lt;/code&gt; files with the same name&lt;/li&gt;
+          &lt;li&gt;subfolders may contain a figures folder&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These rules are determined in the &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/pipeline_script.py&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scripts/pipeline_script.py&lt;/code&gt;&lt;/a&gt; in the &lt;code class=&quot;highlighter-rouge&quot;&gt;FOLDER_STRUCTURES&lt;/code&gt; dictionary. It maps the root level subfolder names to folder structure rules formatted as dictionaries. For example if a subfolders name begins with a string in the list referenced by the &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;exempt_dirs_start_with&quot;&lt;/code&gt; key it will be exempted from being processed by the pipeline.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;#root level directories we won't process&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;EXEMPT_DIRS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;__pycache__&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#dirs starting with given string in LateXPipeline.relative_path will be ignored&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#also applied to root level dirs&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;EXEMPT_DIRS_START_WITH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#files mandatory in each LaTeX folder&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MANDATORY_FILES_ASSIGNMENT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;preamble.tex&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;references.bib&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;content.tex&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#directories in LateXPipeline.relative_path the pipeline will ignore&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;EXEMPT_DIRS_ASSIGNMENT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;latex_output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;BP_COMBINED&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;__pycache__&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#folders allowed but not mandatory in subdirectories&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ALLOWED_SUBDIRS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;figures&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#allowed folder structure for folder assignment_papers&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_ASSIGNMENT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;exempt_dirs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EXEMPT_DIRS_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;\
+    &lt;span class=&quot;s&quot;&gt;&quot;exempt_dirs_start_with&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EXEMPT_DIRS_START_WITH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;\
+    &lt;span class=&quot;s&quot;&gt;&quot;mandatory_files&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MANDATORY_FILES_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;\
+    &lt;span class=&quot;s&quot;&gt;&quot;allowed_subdirs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ALLOWED_SUBDIRS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#allowed folder structure for folder letters&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_LETTERS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_LETTERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mandatory_files&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#different folder structures for each root level dir&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#test_root_folder(_one/two) is necessary for pytest testing&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test_root_folder&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;\
+    &lt;span class=&quot;s&quot;&gt;&quot;test_script_root_folder&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;\
+    &lt;span class=&quot;s&quot;&gt;&quot;test_folder_one&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test_folder_two&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;\
+    &lt;span class=&quot;s&quot;&gt;&quot;assignment_papers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_ASSIGNMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;letters&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOLDER_STRUCTURE_LETTERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;known-issues&quot;&gt;Known issues&lt;/h3&gt;
+
+&lt;p&gt;There is still a problem with calculating the code coverage. As seen in the current &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline&quot;&gt;example repo &lt;/a&gt; the displayed code coverage is just about 80% when it should be very close to 100 percent. Unfortunately the tests in &lt;a href=&quot;https://gitlab.com/kryptokommunist/latexpipeline/blob/master/scripts/tests/test_latexpipeline.py&quot;&gt;scripts/tests/test_latexpipeline.py&lt;/a&gt; calling the script with &lt;code class=&quot;highlighter-rouge&quot;&gt;subprocess.run&lt;/code&gt; won’t be measured by &lt;code class=&quot;highlighter-rouge&quot;&gt;codecov&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_console_test_usage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+     &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Check that Latexmk actually works and the module can be invoked as script from command line&quot;&quot;&quot;&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;python3 &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RELATIVE_SCRIPT_PATH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;' test test@test.de &quot;Test --meta lol&quot;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;\
+         &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cwd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SCRIPT_TEST_ROOT_DIR_PATH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PIPE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PIPE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;YAY&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Latexmk&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>Marcus Ding</name></author><category term="bpbahn" /><category term="gitlab-ci" /><category term="latex" /><category term="python" /><summary type="html">The problem You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. Also you want to email your assignments to your tutors. But you are already annoyed by writing commit messages. Opening your email client and dragging and dropping that PDF, for you it’s pain in it’s purest form. This makes you very sad. You ask yourself: What could I do about it?</summary></entry><entry><title type="html">Example entry 1</title><link href="/bpexample/2018/03/05/example-entry-1.html" rel="alternate" type="text/html" title="Example entry 1" /><published>2018-03-05T00:00:00+00:00</published><updated>2018-03-05T00:00:00+00:00</updated><id>/bpexample/2018/03/05/example-entry-1</id><content type="html" xml:base="/bpexample/2018/03/05/example-entry-1.html">&lt;h2 id=&quot;include-images&quot;&gt;Include Images&lt;/h2&gt;
 
 &lt;p&gt;Just use this:&lt;/p&gt;
 

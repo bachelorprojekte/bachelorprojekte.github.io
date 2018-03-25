@@ -156,7 +156,44 @@
 
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2018/03/19/latex-in-gitlab-ci.html">Automating in Gitlab-CI</a></h1>
+        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2018/03/20/hyperledger.html">Hyperledger: Linux + blockchain = ❤️?</a></h1>
+        <p class="post-meta">
+          <time datetime="2018-03-20T00:00:00+00:00" itemprop="datePublished">
+  
+  Mar 20, 2018
+</time>
+
+  • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="/search/?query=Marcus+Ding">Marcus Ding</a>
+</span></span>
+
+
+  • <span itemprop="category" itemscope itemtype="http://schema.org/Category"><span itemprop="name"><a href="category/bpbahn/index.html">bpbahn</a></span></span>
+
+
+        </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Hyperledger is a project created by the Linux Foundation as an umbrella for open source projects that support enterprise-ready blockchain technology. Hyperledger is comparable to Apache regarding the fact that it is a community of communities.</p>
+
+<h3 id="permissioned-blockchain">permissioned blockchain</h3>
+
+<p>Unlike with permissionless blockchains as for example Bitcoin or Ethereum, parties joining the network must be authenticated and authorized on a permissioned blockchain network.</p>
+
+<a href="/bpbahn/2018/03/20/hyperledger.html">...mehr lesen</a>
+      </div>
+      <div class="post-meta post-tags">
+        
+          <a href="/tags/#hyperledger" class="post-tag"> hyperledger </a>
+        
+          <a href="/tags/#blockchain" class="post-tag"> blockchain </a>
+        
+      </div>
+    </article>
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/bpbahn/2018/03/19/latex-in-gitlab-ci.html">Automating LaTeX compilation in Gitlab-CI</a></h1>
         <p class="post-meta">
           <time datetime="2018-03-19T00:00:00+00:00" itemprop="datePublished">
   
@@ -176,39 +213,7 @@
       <div class="post-content" itemprop="articleBody">
         <h2 id="the-problem">The problem</h2>
 
-<p>You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. This makes you very sad. You ask yourself: What could I do about it?</p>
-
-<p><img src="https://hpi.de/fileadmin/user_upload/hpi/bilder/teaser_channels/studenten/students_2_boys_girl_main_entrance_1020x420.jpg" alt="Cooles Symbolbild" title="Cooles Symbolbild" /></p>
-
-<h2 id="the-solution">The solution</h2>
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">compile_pdfs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="s">"""compile every TeX file in each repository subfolder"""</span>
-    <span class="n">second_level_items</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">first_level_dirs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_exempt_folders</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_level_dirs</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">first_level_dir</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_level_dirs</span><span class="p">:</span>
-        <span class="n">dir_path</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relative_path</span><span class="p">,</span> <span class="n">first_level_dir</span><span class="p">)</span>
-        <span class="n">files_folders</span> <span class="o">=</span> <span class="n">get_files_folders</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
-        <span class="n">second_level_items</span><span class="p">[</span><span class="n">first_level_dir</span><span class="p">]</span> <span class="o">=</span> <span class="n">files_folders</span>
-
-    <span class="k">for</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">second_level_items</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">enforce_compliance</span><span class="p">(</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">second_level_items</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">main_filename</span> <span class="o">=</span> <span class="n">dir_name</span> <span class="o">+</span> <span class="s">".tex"</span>
-        <span class="n">folderpath</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relative_path</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">)</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">(</span><span class="s">'cd "{fp}" &amp;&amp; latexmk -output-directory=../latex_output -pdf "{f}"'</span>\
-            <span class="s">" -e '$pdflatex=q/pdflatex </span><span class="si">%</span><span class="s">O -shell-escape </span><span class="si">%</span><span class="s">S/'"</span><span class="p">)</span>\
-            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fp</span><span class="o">=</span><span class="n">folderpath</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">main_filename</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">call</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">sccmsg</span> <span class="o">=</span> <span class="s">"</span><span class="se">\033</span><span class="s">[92mCompiled </span><span class="se">\033</span><span class="s">[94m{d}.tex</span><span class="se">\033</span><span class="s">[92m successfully</span><span class="se">\033</span><span class="s">[0m"</span>\
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">dir_name</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">sccmsg</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">errmsg</span> <span class="o">=</span> <span class="s">"</span><span class="se">\033</span><span class="s">[91mError with compiling </span><span class="se">\033</span><span class="s">[94m{d}.tex</span><span class="se">\033</span><span class="s">[0m</span><span class="se">\n</span><span class="s">cmd: {c}"</span>\
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">cmd</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error_notify_and_exit</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span></code></pre></figure>
+<p>You are pushing LateX documents into a repository with all of your friends. Your friends compile the PDF files locally and sometimes push garbage into the repo. Also you want to email your assignments to your tutors. But you are already annoyed by writing commit messages. Opening your email client and dragging and dropping that PDF, for you it’s pain in it’s purest form. This makes you very sad. You ask yourself: What could I do about it?</p>
 
 <a href="/bpbahn/2018/03/19/latex-in-gitlab-ci.html">...mehr lesen</a>
       </div>

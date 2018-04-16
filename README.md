@@ -5,6 +5,7 @@ This is the repo for our bachelor project blogs powered by static site generator
 ## Testing the site on your local machine
 
  - install [Ruby](https://www.ruby-lang.org/de/documentation/installation/) if not present
+ - install make (e.g. sudo apt install build-essentials for unix or https://www.cmake.org)
  - git clone git@github.com:bachelorprojekte/bachelorprojekte.github.io.git
  - git checkout jekyll
  - gem install jekyll bundler

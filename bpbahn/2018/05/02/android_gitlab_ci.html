@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Implementing GitLab CI for Android development | HPI Bachelorprojekte 2017</title>
+<meta name="generator" content="Jekyll v3.6.2" />
+<meta property="og:title" content="Implementing GitLab CI for Android development" />
+<meta name="author" content="Melvin Witte" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="GitLab CI on Android If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with GitLab CI and want to share our insights with you. The whole .gitlab-ci.yml image: openjdk:8-jdk variables: GRADLE_OPTS: &quot;-Dorg.gradle.daemon=false&quot; ANDROID_COMPILE_SDK: &quot;26&quot; ANDROID_BUILD_TOOLS: &quot;27.0.3&quot; before_script: - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ stages: - assemble - test - qa buildApp: stage: assemble script: - cd android - ../gradle/gradle-4.6/bin/gradle assemble artifacts: paths: - android/app/build/outputs/ unitTests: stage: test dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle test artifacts: name: &quot;report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/tests/ instrumentalTests: stage: test dependencies: - buildApp tags: - do script: - cd android - chmod +x android-wait-for-emulator - ../linux-sdk-tools/tools/bin/sdkmanager &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - ../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp; - ./android-wait-for-emulator - adb devices - adb shell settings put global window_animation_scale 0 &amp; - adb shell settings put global transition_animation_scale 0 &amp; - adb shell settings put global animator_duration_scale 0 &amp; - adb shell input keyevent 82 &amp; - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest - adb -s testAVD emu kill artifacts: name: &quot;report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/androidTests/ lint: stage: qa dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle lint artifacts: name: &quot;reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html&quot; expire_in: 4 days paths: - android/app/build/reports/ Lets break it down step by step. First of all the: image: openjdk:8-jdk variables: GRADLE_OPTS: &quot;-Dorg.gradle.daemon=false&quot; ANDROID_COMPILE_SDK: &quot;26&quot; ANDROID_BUILD_TOOLS: &quot;27.0.3&quot; First of all we declare the image. We use openjdk:8-jdk, since it has Java and the JDK we need installed. It has Ubuntu 16.04 as OS. After that, we set a few variables. GRADLE_OPTS: &quot;-Dorf.gradle.daemon=false&quot; tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won’t be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on. Let’s take a look at the before_script section now. This is run before every job of this build: before_script: - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ Lets break it down into smaller parts. - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 First of all, we update the system and install two packages, which are needed for the SDK tools to work. - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses Then we download and unzip the SDK tools and Gradle 4.6 for later usage. The apt version of gradle is currently bugged and won’t run the build correctly. We also accept the licenses for the SDKs. Without accepting the licenses, the sdkmanager won’t download or update the SDKs. - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ When updating, the sdkmanager will look for ~/.android/repositories.cfg. Since the docker image runs as a root, this file is located at /root/.android/repositories.cfg. We then update existing SDKs and install the platform and build tools for android. stages: - assemble - test - qa We got three stages so far, assemble, test and qa. While assembling, the apk is built. In the test stage we run unit and instrumental tests. The quality assurance stage currently only runs lint, but in the future we plan on using more Static Code Analysis tools like FindBugs, PMD or Checkstyle. buildApp: stage: assemble script: - cd android - ../gradle/gradle-4.6/bin/gradle assemble artifacts: paths: - android/app/build/outputs/ The only job in the assemble stage is buildApp. It enters the android folder, because that is our root for the android project. We have some more things in the repository, that’s why the android project is not at the root path. Then we basically just run gradle assemble to build the apk. Since android is the root for our android app, the output artifacts are at android/app/build/outputs/. This will later on be used as dependency for the tests. unitTests: stage: test dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle test artifacts: name: &quot;report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/tests/ The unitTests job runs all unit tests. It depends on the buildApp job’s artifacts (which will be downloaded by this job and put in the same structure they were created previously). Similar to the previous job, it simply runs gradle test in the android project root. This job only uploads artifacts in case of failure, since that is the only case we need to look at them, and these reports will only be available for four days. instrumentalTests: stage: test dependencies: - buildApp tags: - do script: - cd android - chmod +x android-wait-for-emulator - ../linux-sdk-tools/tools/bin/sdkmanager &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - ../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp; - ./android-wait-for-emulator - adb devices - adb shell settings put global window_animation_scale 0 &amp; - adb shell settings put global transition_animation_scale 0 &amp; - adb shell settings put global animator_duration_scale 0 &amp; - adb shell input keyevent 82 &amp; - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest - adb -s testAVD emu kill artifacts: name: &quot;report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/androidTests/ The instrumentalTests job is a bit more complicated. First of all, it should only run on shared runners that have the do tag. Since the instrumental tests run on emulator the docker image needs to support KVM hardware acceleration. The only shared runners supporting KVM are the do tagged runner. android-wait-for-emulator is a script that waits for an emulator to be ready for usage. We then download the image for an x86 emulator with our target SDK and create and start an avd with that system image and wait until it has started. We then disable animations and transitions since those can interfere with instrumental tests. keyevent 82 unlocks the device, after which we run gradle connectedAndroidTest. This gradle task is only available (check with gradle tasks) if you have an emulator running or a device connected. Afterwards we stop the emulator and, as with the unit tests, upload the reports in case of failure, which expire after four days. lint: stage: qa dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle lint artifacts: name: &quot;reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html&quot; expire_in: 4 days paths: - android/app/build/reports/ This runs lint. Basically it runs gradle lint and uploads the reports. Since lint also has warnings that do not fail the build, we always want to have the report. And that’s all we have so far. The next steps we want to take are running the build with caching, as well as implementing more static code analysis tools and making them visible in the repository." />
+<meta property="og:description" content="GitLab CI on Android If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with GitLab CI and want to share our insights with you. The whole .gitlab-ci.yml image: openjdk:8-jdk variables: GRADLE_OPTS: &quot;-Dorg.gradle.daemon=false&quot; ANDROID_COMPILE_SDK: &quot;26&quot; ANDROID_BUILD_TOOLS: &quot;27.0.3&quot; before_script: - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ stages: - assemble - test - qa buildApp: stage: assemble script: - cd android - ../gradle/gradle-4.6/bin/gradle assemble artifacts: paths: - android/app/build/outputs/ unitTests: stage: test dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle test artifacts: name: &quot;report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/tests/ instrumentalTests: stage: test dependencies: - buildApp tags: - do script: - cd android - chmod +x android-wait-for-emulator - ../linux-sdk-tools/tools/bin/sdkmanager &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - ../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp; - ./android-wait-for-emulator - adb devices - adb shell settings put global window_animation_scale 0 &amp; - adb shell settings put global transition_animation_scale 0 &amp; - adb shell settings put global animator_duration_scale 0 &amp; - adb shell input keyevent 82 &amp; - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest - adb -s testAVD emu kill artifacts: name: &quot;report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/androidTests/ lint: stage: qa dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle lint artifacts: name: &quot;reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html&quot; expire_in: 4 days paths: - android/app/build/reports/ Lets break it down step by step. First of all the: image: openjdk:8-jdk variables: GRADLE_OPTS: &quot;-Dorg.gradle.daemon=false&quot; ANDROID_COMPILE_SDK: &quot;26&quot; ANDROID_BUILD_TOOLS: &quot;27.0.3&quot; First of all we declare the image. We use openjdk:8-jdk, since it has Java and the JDK we need installed. It has Ubuntu 16.04 as OS. After that, we set a few variables. GRADLE_OPTS: &quot;-Dorf.gradle.daemon=false&quot; tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won’t be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on. Let’s take a look at the before_script section now. This is run before every job of this build: before_script: - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ Lets break it down into smaller parts. - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 First of all, we update the system and install two packages, which are needed for the SDK tools to work. - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses Then we download and unzip the SDK tools and Gradle 4.6 for later usage. The apt version of gradle is currently bugged and won’t run the build correctly. We also accept the licenses for the SDKs. Without accepting the licenses, the sdkmanager won’t download or update the SDKs. - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ When updating, the sdkmanager will look for ~/.android/repositories.cfg. Since the docker image runs as a root, this file is located at /root/.android/repositories.cfg. We then update existing SDKs and install the platform and build tools for android. stages: - assemble - test - qa We got three stages so far, assemble, test and qa. While assembling, the apk is built. In the test stage we run unit and instrumental tests. The quality assurance stage currently only runs lint, but in the future we plan on using more Static Code Analysis tools like FindBugs, PMD or Checkstyle. buildApp: stage: assemble script: - cd android - ../gradle/gradle-4.6/bin/gradle assemble artifacts: paths: - android/app/build/outputs/ The only job in the assemble stage is buildApp. It enters the android folder, because that is our root for the android project. We have some more things in the repository, that’s why the android project is not at the root path. Then we basically just run gradle assemble to build the apk. Since android is the root for our android app, the output artifacts are at android/app/build/outputs/. This will later on be used as dependency for the tests. unitTests: stage: test dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle test artifacts: name: &quot;report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/tests/ The unitTests job runs all unit tests. It depends on the buildApp job’s artifacts (which will be downloaded by this job and put in the same structure they were created previously). Similar to the previous job, it simply runs gradle test in the android project root. This job only uploads artifacts in case of failure, since that is the only case we need to look at them, and these reports will only be available for four days. instrumentalTests: stage: test dependencies: - buildApp tags: - do script: - cd android - chmod +x android-wait-for-emulator - ../linux-sdk-tools/tools/bin/sdkmanager &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - ../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp; - ./android-wait-for-emulator - adb devices - adb shell settings put global window_animation_scale 0 &amp; - adb shell settings put global transition_animation_scale 0 &amp; - adb shell settings put global animator_duration_scale 0 &amp; - adb shell input keyevent 82 &amp; - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest - adb -s testAVD emu kill artifacts: name: &quot;report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/androidTests/ The instrumentalTests job is a bit more complicated. First of all, it should only run on shared runners that have the do tag. Since the instrumental tests run on emulator the docker image needs to support KVM hardware acceleration. The only shared runners supporting KVM are the do tagged runner. android-wait-for-emulator is a script that waits for an emulator to be ready for usage. We then download the image for an x86 emulator with our target SDK and create and start an avd with that system image and wait until it has started. We then disable animations and transitions since those can interfere with instrumental tests. keyevent 82 unlocks the device, after which we run gradle connectedAndroidTest. This gradle task is only available (check with gradle tasks) if you have an emulator running or a device connected. Afterwards we stop the emulator and, as with the unit tests, upload the reports in case of failure, which expire after four days. lint: stage: qa dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle lint artifacts: name: &quot;reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html&quot; expire_in: 4 days paths: - android/app/build/reports/ This runs lint. Basically it runs gradle lint and uploads the reports. Since lint also has warnings that do not fail the build, we always want to have the report. And that’s all we have so far. The next steps we want to take are running the build with caching, as well as implementing more static code analysis tools and making them visible in the repository." />
+<link rel="canonical" href="/bpbahn/2018/05/02/android_gitlab_ci.html" />
+<meta property="og:url" content="/bpbahn/2018/05/02/android_gitlab_ci.html" />
+<meta property="og:site_name" content="HPI Bachelorprojekte 2017" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-02T00:00:00+00:00" />
+<script type="application/ld+json">
+{"description":"GitLab CI on Android If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with GitLab CI and want to share our insights with you. The whole .gitlab-ci.yml image: openjdk:8-jdk variables: GRADLE_OPTS: &quot;-Dorg.gradle.daemon=false&quot; ANDROID_COMPILE_SDK: &quot;26&quot; ANDROID_BUILD_TOOLS: &quot;27.0.3&quot; before_script: - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ stages: - assemble - test - qa buildApp: stage: assemble script: - cd android - ../gradle/gradle-4.6/bin/gradle assemble artifacts: paths: - android/app/build/outputs/ unitTests: stage: test dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle test artifacts: name: &quot;report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/tests/ instrumentalTests: stage: test dependencies: - buildApp tags: - do script: - cd android - chmod +x android-wait-for-emulator - ../linux-sdk-tools/tools/bin/sdkmanager &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - ../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp; - ./android-wait-for-emulator - adb devices - adb shell settings put global window_animation_scale 0 &amp; - adb shell settings put global transition_animation_scale 0 &amp; - adb shell settings put global animator_duration_scale 0 &amp; - adb shell input keyevent 82 &amp; - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest - adb -s testAVD emu kill artifacts: name: &quot;report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/androidTests/ lint: stage: qa dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle lint artifacts: name: &quot;reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html&quot; expire_in: 4 days paths: - android/app/build/reports/ Lets break it down step by step. First of all the: image: openjdk:8-jdk variables: GRADLE_OPTS: &quot;-Dorg.gradle.daemon=false&quot; ANDROID_COMPILE_SDK: &quot;26&quot; ANDROID_BUILD_TOOLS: &quot;27.0.3&quot; First of all we declare the image. We use openjdk:8-jdk, since it has Java and the JDK we need installed. It has Ubuntu 16.04 as OS. After that, we set a few variables. GRADLE_OPTS: &quot;-Dorf.gradle.daemon=false&quot; tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won’t be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on. Let’s take a look at the before_script section now. This is run before every job of this build: before_script: - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ Lets break it down into smaller parts. - apt-get -q --yes update - apt-get -q --yes install lib32stdc++6 lib32z1 First of all, we update the system and install two packages, which are needed for the SDK tools to work. - wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip - mkdir linux-sdk-tools - unzip -q linux-sdk-tools.zip -d linux-sdk-tools - wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip - mkdir gradle - unzip -q gradle.zip -d gradle - chmod +x gradle/gradle-4.6/bin/gradle - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses Then we download and unzip the SDK tools and Gradle 4.6 for later usage. The apt version of gradle is currently bugged and won’t run the build correctly. We also accept the licenses for the SDKs. Without accepting the licenses, the sdkmanager won’t download or update the SDKs. - mkdir -p /root/.android - touch /root/.android/repositories.cfg - linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log - linux-sdk-tools/tools/bin/sdkmanager &quot;platforms;android-${ANDROID_COMPILE_SDK}&quot; &quot;build-tools;${ANDROID_BUILD_TOOLS}&quot; &quot;extras;google;m2repository&quot; &quot;extras;android;m2repository&quot; &gt; installPlatform.log - export ANDROID_HOME=$PWD/linux-sdk-tools - export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/ When updating, the sdkmanager will look for ~/.android/repositories.cfg. Since the docker image runs as a root, this file is located at /root/.android/repositories.cfg. We then update existing SDKs and install the platform and build tools for android. stages: - assemble - test - qa We got three stages so far, assemble, test and qa. While assembling, the apk is built. In the test stage we run unit and instrumental tests. The quality assurance stage currently only runs lint, but in the future we plan on using more Static Code Analysis tools like FindBugs, PMD or Checkstyle. buildApp: stage: assemble script: - cd android - ../gradle/gradle-4.6/bin/gradle assemble artifacts: paths: - android/app/build/outputs/ The only job in the assemble stage is buildApp. It enters the android folder, because that is our root for the android project. We have some more things in the repository, that’s why the android project is not at the root path. Then we basically just run gradle assemble to build the apk. Since android is the root for our android app, the output artifacts are at android/app/build/outputs/. This will later on be used as dependency for the tests. unitTests: stage: test dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle test artifacts: name: &quot;report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/tests/ The unitTests job runs all unit tests. It depends on the buildApp job’s artifacts (which will be downloaded by this job and put in the same structure they were created previously). Similar to the previous job, it simply runs gradle test in the android project root. This job only uploads artifacts in case of failure, since that is the only case we need to look at them, and these reports will only be available for four days. instrumentalTests: stage: test dependencies: - buildApp tags: - do script: - cd android - chmod +x android-wait-for-emulator - ../linux-sdk-tools/tools/bin/sdkmanager &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k &quot;system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86&quot; - ../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp; - ./android-wait-for-emulator - adb devices - adb shell settings put global window_animation_scale 0 &amp; - adb shell settings put global transition_animation_scale 0 &amp; - adb shell settings put global animator_duration_scale 0 &amp; - adb shell input keyevent 82 &amp; - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest - adb -s testAVD emu kill artifacts: name: &quot;report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}&quot; when: on_failure expire_in: 4 days paths: - android/app/build/reports/androidTests/ The instrumentalTests job is a bit more complicated. First of all, it should only run on shared runners that have the do tag. Since the instrumental tests run on emulator the docker image needs to support KVM hardware acceleration. The only shared runners supporting KVM are the do tagged runner. android-wait-for-emulator is a script that waits for an emulator to be ready for usage. We then download the image for an x86 emulator with our target SDK and create and start an avd with that system image and wait until it has started. We then disable animations and transitions since those can interfere with instrumental tests. keyevent 82 unlocks the device, after which we run gradle connectedAndroidTest. This gradle task is only available (check with gradle tasks) if you have an emulator running or a device connected. Afterwards we stop the emulator and, as with the unit tests, upload the reports in case of failure, which expire after four days. lint: stage: qa dependencies: - buildApp script: - cd android - ../gradle/gradle-4.6/bin/gradle lint artifacts: name: &quot;reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html&quot; expire_in: 4 days paths: - android/app/build/reports/ This runs lint. Basically it runs gradle lint and uploads the reports. Since lint also has warnings that do not fail the build, we always want to have the report. And that’s all we have so far. The next steps we want to take are running the build with caching, as well as implementing more static code analysis tools and making them visible in the repository.","author":{"@type":"Person","name":"Melvin Witte"},"@type":"BlogPosting","url":"/bpbahn/2018/05/02/android_gitlab_ci.html","headline":"Implementing GitLab CI for Android development","dateModified":"2018-05-02T00:00:00+00:00","datePublished":"2018-05-02T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"/bpbahn/2018/05/02/android_gitlab_ci.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="HPI Bachelorprojekte 2017" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a href="/" class="site-title"><span id="first-name">HPI</span><span id="last-name"> BP17</span></a>
+
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+                <a class="page-link" href="/about/">about</a>
+              
+            
+          
+            
+            
+          
+            
+            
+              
+                <a class="page-link" href="/overview/">overview</a>
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+                <a class="page-link" href="/tags/">tags</a>
+              
+            
+          
+            
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+              
+            
+          
+            
+            
+          
+            
+            
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a class="page-link" href="/category/bpexample/index.html">bpexample</a>
+            
+          
+            
+              <a class="page-link" href="/category/bpbahn/index.html">bpbahn</a>
+            
+          
+            
+          
+            
+          
+          <a class="page-link" href="/search/">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
+      </nav>
+    
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Implementing GitLab CI for Android development</h1>
+    <p class="post-meta">
+      <time datetime="2018-05-02T00:00:00+00:00" itemprop="datePublished">
+        
+        May 2, 2018
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="/search/?query=Melvin+Witte">Melvin Witte</a>
+</span></span>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="gitlab-ci-on-android">GitLab CI on Android</h1>
+<p>If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with <a href="https://about.gitlab.com/geatures/gitlab-ci-cd">GitLab CI</a> and want to share our insights with you.</p>
+
+<h2 id="the-whole-gitlab-ciyml">The whole .gitlab-ci.yml</h2>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">image</span><span class="pi">:</span> <span class="s">openjdk:8-jdk</span>
+
+<span class="na">variables</span><span class="pi">:</span>
+  <span class="na">GRADLE_OPTS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dorg.gradle.daemon=false"</span>
+  <span class="na">ANDROID_COMPILE_SDK</span><span class="pi">:</span> <span class="s2">"</span><span class="s">26"</span>
+  <span class="na">ANDROID_BUILD_TOOLS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">27.0.3"</span>
+
+<span class="na">before_script</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">apt-get -q --yes update</span>
+  <span class="pi">-</span> <span class="s">apt-get -q --yes install lib32stdc++6 lib32z1</span>
+  <span class="pi">-</span> <span class="s">wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip</span>
+  <span class="pi">-</span> <span class="s">mkdir linux-sdk-tools</span>
+  <span class="pi">-</span> <span class="s">unzip -q linux-sdk-tools.zip -d linux-sdk-tools</span>
+  <span class="pi">-</span> <span class="s">wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip</span>
+  <span class="pi">-</span> <span class="s">mkdir gradle</span>
+  <span class="pi">-</span> <span class="s">unzip -q gradle.zip -d gradle</span>
+  <span class="pi">-</span> <span class="s">chmod +x gradle/gradle-4.6/bin/gradle</span>
+  <span class="pi">-</span> <span class="s">yes | linux-sdk-tools/tools/bin/sdkmanager --licenses</span>
+  <span class="pi">-</span> <span class="s">mkdir -p /root/.android</span>
+  <span class="pi">-</span> <span class="s">touch /root/.android/repositories.cfg</span>
+  <span class="pi">-</span> <span class="s">linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log</span>
+  <span class="pi">-</span> <span class="s">linux-sdk-tools/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" &gt; installPlatform.log</span>
+  <span class="pi">-</span> <span class="s">export ANDROID_HOME=$PWD/linux-sdk-tools</span>
+  <span class="pi">-</span> <span class="s">export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">assemble</span>
+  <span class="pi">-</span> <span class="s">test</span>
+  <span class="pi">-</span> <span class="s">qa</span>
+
+<span class="na">buildApp</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">assemble</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle assemble</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/outputs/</span>
+
+<span class="na">unitTests</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">test</span>
+  <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">buildApp</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle test</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}"</span>
+    <span class="na">when</span><span class="pi">:</span> <span class="s">on_failure</span>
+    <span class="na">expire_in</span><span class="pi">:</span> <span class="s">4 days</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/reports/tests/</span>
+
+<span class="na">instrumentalTests</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">test</span>
+  <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">buildApp</span>
+  <span class="na">tags</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">do</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">chmod +x android-wait-for-emulator</span>
+    <span class="pi">-</span> <span class="s">../linux-sdk-tools/tools/bin/sdkmanager "system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86"</span>
+    <span class="pi">-</span> <span class="s">echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k "system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86"</span>
+    <span class="pi">-</span> <span class="s">../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp;</span>
+    <span class="pi">-</span> <span class="s">./android-wait-for-emulator</span>
+    <span class="pi">-</span> <span class="s">adb devices</span>
+    <span class="pi">-</span> <span class="s">adb shell settings put global window_animation_scale 0 &amp;</span>
+    <span class="pi">-</span> <span class="s">adb shell settings put global transition_animation_scale 0 &amp;</span>
+    <span class="pi">-</span> <span class="s">adb shell settings put global animator_duration_scale 0 &amp;</span>
+    <span class="pi">-</span> <span class="s">adb shell input keyevent 82 &amp;</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle connectedAndroidTest</span>
+    <span class="pi">-</span> <span class="s">adb -s testAVD emu kill</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}"</span>
+    <span class="na">when</span><span class="pi">:</span> <span class="s">on_failure</span>
+    <span class="na">expire_in</span><span class="pi">:</span> <span class="s">4 days</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/reports/androidTests/</span>
+
+<span class="na">lint</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">qa</span>
+  <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">buildApp</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle lint</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html"</span>
+    <span class="na">expire_in</span><span class="pi">:</span> <span class="s">4 days</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/reports/</span>
+</code></pre></div></div>
+
+<p>Lets break it down step by step. First of all the:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">image</span><span class="pi">:</span> <span class="s">openjdk:8-jdk</span>
+
+<span class="na">variables</span><span class="pi">:</span>
+  <span class="na">GRADLE_OPTS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dorg.gradle.daemon=false"</span>
+  <span class="na">ANDROID_COMPILE_SDK</span><span class="pi">:</span> <span class="s2">"</span><span class="s">26"</span>
+  <span class="na">ANDROID_BUILD_TOOLS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">27.0.3"</span>
+</code></pre></div></div>
+
+<p>First of all we declare the image. We use <code class="highlighter-rouge">openjdk:8-jdk</code>, since it has Java and the JDK we need installed. It has Ubuntu 16.04 as OS.</p>
+
+<p>After that, we set a few variables. <code class="highlighter-rouge">GRADLE_OPTS: "-Dorf.gradle.daemon=false"</code> tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won’t be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on.</p>
+
+<p>Let’s take a look at the before_script section now. This is run before every job of this build:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">before_script</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">apt-get -q --yes update</span>
+  <span class="pi">-</span> <span class="s">apt-get -q --yes install lib32stdc++6 lib32z1</span>
+  <span class="pi">-</span> <span class="s">wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip</span>
+  <span class="pi">-</span> <span class="s">mkdir linux-sdk-tools</span>
+  <span class="pi">-</span> <span class="s">unzip -q linux-sdk-tools.zip -d linux-sdk-tools</span>
+  <span class="pi">-</span> <span class="s">wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip</span>
+  <span class="pi">-</span> <span class="s">mkdir gradle</span>
+  <span class="pi">-</span> <span class="s">unzip -q gradle.zip -d gradle</span>
+  <span class="pi">-</span> <span class="s">chmod +x gradle/gradle-4.6/bin/gradle</span>
+  <span class="pi">-</span> <span class="s">yes | linux-sdk-tools/tools/bin/sdkmanager --licenses</span>
+  <span class="pi">-</span> <span class="s">mkdir -p /root/.android</span>
+  <span class="pi">-</span> <span class="s">touch /root/.android/repositories.cfg</span>
+  <span class="pi">-</span> <span class="s">linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log</span>
+  <span class="pi">-</span> <span class="s">linux-sdk-tools/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" &gt; installPlatform.log</span>
+  <span class="pi">-</span> <span class="s">export ANDROID_HOME=$PWD/linux-sdk-tools</span>
+  <span class="pi">-</span> <span class="s">export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/</span>
+</code></pre></div></div>
+<p>Lets break it down into smaller parts.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="pi">-</span> <span class="s">apt-get -q --yes update</span>
+  <span class="pi">-</span> <span class="s">apt-get -q --yes install lib32stdc++6 lib32z1</span>
+</code></pre></div></div>
+
+<p>First of all, we update the system and install two packages, which are needed for the SDK tools to work.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="s">wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip -O linux-sdk-tools.zip</span>
+<span class="pi">-</span> <span class="s">mkdir linux-sdk-tools</span>
+<span class="pi">-</span> <span class="s">unzip -q linux-sdk-tools.zip -d linux-sdk-tools</span>
+<span class="pi">-</span> <span class="s">wget -q https://services.gradle.org/distributions/gradle-4.6-bin.zip -O gradle.zip</span>
+<span class="pi">-</span> <span class="s">mkdir gradle</span>
+<span class="pi">-</span> <span class="s">unzip -q gradle.zip -d gradle</span>
+<span class="pi">-</span> <span class="s">chmod +x gradle/gradle-4.6/bin/gradle</span>
+<span class="pi">-</span> <span class="s">yes | linux-sdk-tools/tools/bin/sdkmanager --licenses</span>
+</code></pre></div></div>
+
+<p>Then we download and unzip the SDK tools and Gradle 4.6 for later usage. The apt version of gradle is currently bugged and won’t run the build correctly. We also accept the licenses for the SDKs. Without accepting the licenses, the sdkmanager won’t download or update the SDKs.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="pi">-</span> <span class="s">mkdir -p /root/.android</span>
+<span class="pi">-</span> <span class="s">touch /root/.android/repositories.cfg</span>
+<span class="pi">-</span> <span class="s">linux-sdk-tools/tools/bin/sdkmanager --update &gt; update.log</span>
+<span class="pi">-</span> <span class="s">linux-sdk-tools/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" &gt; installPlatform.log</span>
+<span class="pi">-</span> <span class="s">export ANDROID_HOME=$PWD/linux-sdk-tools</span>
+<span class="pi">-</span> <span class="s">export PATH=$PATH:$PWD/linux-sdk-tools/platform-tools/</span>
+</code></pre></div></div>
+
+<p>When updating, the sdkmanager will look for ~/.android/repositories.cfg. Since the docker image runs as a root, this file is located at /root/.android/repositories.cfg. We then update existing SDKs and install the platform and build tools for android.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">assemble</span>
+  <span class="pi">-</span> <span class="s">test</span>
+  <span class="pi">-</span> <span class="s">qa</span>
+</code></pre></div></div>
+
+<p>We got three stages so far, <code class="highlighter-rouge">assemble</code>, <code class="highlighter-rouge">test</code> and <code class="highlighter-rouge">qa</code>. While assembling, the apk is built. In the test stage we run unit and instrumental tests. The quality assurance stage currently only runs lint, but in the future we plan on using more Static Code Analysis tools like <a href="https://findbugs.sourceforge.net/">FindBugs</a>, <a href="https://pmd.github.io/">PMD</a> or <a href="https://github.com/checkstyle/checkstyle">Checkstyle</a>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">buildApp</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">assemble</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle assemble</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/outputs/</span>
+</code></pre></div></div>
+
+<p>The only job in the <code class="highlighter-rouge">assemble</code> stage is <code class="highlighter-rouge">buildApp</code>. It enters the android folder, because that is our root for the android project. We have some more things in the repository, that’s why the android project is not at the root path. Then we basically just run <code class="highlighter-rouge">gradle assemble</code> to build the apk. Since android is the root for our android app, the output artifacts are at <code class="highlighter-rouge">android/app/build/outputs/</code>. This will later on be used as dependency for the tests.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">unitTests</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">test</span>
+  <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">buildApp</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle test</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">report-unit-tests_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}"</span>
+    <span class="na">when</span><span class="pi">:</span> <span class="s">on_failure</span>
+    <span class="na">expire_in</span><span class="pi">:</span> <span class="s">4 days</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/reports/tests/</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">unitTests</code> job runs all unit tests. It depends on the <code class="highlighter-rouge">buildApp</code> job’s artifacts (which will be downloaded by this job and put in the same structure they were created previously). Similar to the previous job, it simply runs <code class="highlighter-rouge">gradle test</code> in the android project root. This job only uploads artifacts in case of failure, since that is the only case we need to look at them, and these reports will only be available for four days.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">instrumentalTests</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">test</span>
+  <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">buildApp</span>
+  <span class="na">tags</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">do</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">chmod +x android-wait-for-emulator</span>
+    <span class="pi">-</span> <span class="s">../linux-sdk-tools/tools/bin/sdkmanager "system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86"</span>
+    <span class="pi">-</span> <span class="s">echo no | ../linux-sdk-tools/tools/bin/avdmanager create avd -n testAVD -k "system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86"</span>
+    <span class="pi">-</span> <span class="s">../linux-sdk-tools/tools/emulator -avd testAVD -no-audio -no-window &amp;</span>
+    <span class="pi">-</span> <span class="s">./android-wait-for-emulator</span>
+    <span class="pi">-</span> <span class="s">adb devices</span>
+    <span class="pi">-</span> <span class="s">adb shell settings put global window_animation_scale 0 &amp;</span>
+    <span class="pi">-</span> <span class="s">adb shell settings put global transition_animation_scale 0 &amp;</span>
+    <span class="pi">-</span> <span class="s">adb shell settings put global animator_duration_scale 0 &amp;</span>
+    <span class="pi">-</span> <span class="s">adb shell input keyevent 82 &amp;</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle connectedAndroidTest</span>
+    <span class="pi">-</span> <span class="s">adb -s testAVD emu kill</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}"</span>
+    <span class="na">when</span><span class="pi">:</span> <span class="s">on_failure</span>
+    <span class="na">expire_in</span><span class="pi">:</span> <span class="s">4 days</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/reports/androidTests/</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">instrumentalTests</code> job is a bit more complicated. First of all, it should only run on shared runners that have the <code class="highlighter-rouge">do</code> tag. Since the instrumental tests run on emulator the docker image needs to support KVM hardware acceleration. The only shared runners supporting KVM are the <code class="highlighter-rouge">do</code> tagged runner. <a href="https://github.com/travis-ci/travis-cookbooks/blob/master/community-cookbooks/android-sdk/files/default/android-wait-for-emulator">android-wait-for-emulator</a> is a script that waits for an emulator to be ready for usage. We then download the image for an x86 emulator with our target SDK and create and start an avd with that system image and wait until it has started. We then disable animations and transitions since those can interfere with instrumental tests. <code class="highlighter-rouge">keyevent 82</code> unlocks the device, after which we run <code class="highlighter-rouge">gradle connectedAndroidTest</code>. This gradle task is only available (check with gradle tasks) if you have an emulator running or a device connected. Afterwards we stop the emulator and, as with the unit tests, upload the reports in case of failure, which expire after four days.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">lint</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">qa</span>
+  <span class="na">dependencies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">buildApp</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">cd android</span>
+    <span class="pi">-</span> <span class="s">../gradle/gradle-4.6/bin/gradle lint</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}.html"</span>
+    <span class="na">expire_in</span><span class="pi">:</span> <span class="s">4 days</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">android/app/build/reports/</span>
+</code></pre></div></div>
+
+<p>This runs lint. Basically it runs <code class="highlighter-rouge">gradle lint</code> and uploads the reports. Since lint also has warnings that do not fail the build, we always want to have the report.</p>
+
+<p>And that’s all we have so far. The next steps we want to take are running the build with <a href="https://docs.gitlab.com/ee/ci/caching">caching</a>, as well as implementing more static code analysis tools and making them visible in the repository.</p>
+
+  </div>
+
+  <div class="post-meta post-tags">
+    
+      <a href="/tags/#gitlab-ci" class="post-tag"> gitlab-ci </a>
+    
+      <a href="/tags/#latex" class="post-tag"> latex </a>
+    
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+
+
+  <div style="text-align: center">
+    <span><a href="https://www.youtube.com/user/hpitv1"><span class="username"><i class="fa fa-youtube" aria-hidden="true"></i> watch</span></a></span>
+    <span><a href="https://www.facebook.com/HassoPlattnerInstitute"><span class="username"><i class="fa fa-facebook-square" aria-hidden="true"></i> stalk</span></a></span>
+    <span><a href="https://twitter.com/HPI_DE"><span class="username"><i class="fa fa-twitter" aria-hidden="true"></i> follow</span></a></span>
+    <span><a href="https://www.github.com/bachelorprojekte"><i class="fa fa-github-square" aria-hidden="true"></i> judge</span></a></span>
+  </div>
+</div>
+</footer>
+<div class="madewith">
+  <span class="post-meta">powered by <a href="https://github.com/bachelorprojekte/bachelorprojekte.github.io/tree/jekyll">jekyll</a></span>
+</div>
+</body>
+
+</html>

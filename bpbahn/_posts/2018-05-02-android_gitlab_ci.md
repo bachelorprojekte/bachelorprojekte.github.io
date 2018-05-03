@@ -34,7 +34,12 @@ before_script:
   - mkdir gradle
   - unzip -q gradle.zip -d gradle
   - chmod +x gradle/gradle-4.6/bin/gradle
-  - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses
+  - mkdir linux-sdk-tools/licenses
+  - printf "601085b94cd77f0b54ff86406957099ebe79c4d6" > linux-sdk-tools/licenses/android-googletv-license
+  - printf "d56f5187479451eabf01fb78af6dfcb131a6481e" > linux-sdk-tools/licenses/android-sdk-license
+  - printf "84831b9409646a918e30573bab4c9c91346d8abd" > linux-sdk-tools/licenses/android-sdk-preview-license
+  - printf "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > linux-sdk-tools/licenses/android-gdk-license
+  - printf "e9acab5b5fbb560a72cfaecce8946896ff6aab9d" > linux-sdk-tools/licenses/mips-android-sysimage-license
   - mkdir -p /root/.android
   - touch /root/.android/repositories.cfg
   - linux-sdk-tools/tools/bin/sdkmanager --update > update.log
@@ -89,7 +94,7 @@ instrumentalTests:
     - adb shell settings put global animator_duration_scale 0 &
     - adb shell input keyevent 82 &
     - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest
-    - adb -s testAVD emu kill
+    - adb emu kill
   artifacts:
     name: "report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}"
     when: on_failure
@@ -140,7 +145,12 @@ before_script:
   - mkdir gradle
   - unzip -q gradle.zip -d gradle
   - chmod +x gradle/gradle-4.6/bin/gradle
-  - yes | linux-sdk-tools/tools/bin/sdkmanager --licenses
+  - mkdir linux-sdk-tools/licenses
+  - printf "601085b94cd77f0b54ff86406957099ebe79c4d6" > linux-sdk-tools/licenses/android-googletv-license
+  - printf "d56f5187479451eabf01fb78af6dfcb131a6481e" > linux-sdk-tools/licenses/android-sdk-license
+  - printf "84831b9409646a918e30573bab4c9c91346d8abd" > linux-sdk-tools/licenses/android-sdk-preview-license
+  - printf "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > linux-sdk-tools/licenses/android-gdk-license
+  - printf "e9acab5b5fbb560a72cfaecce8946896ff6aab9d" > linux-sdk-tools/licenses/mips-android-sysimage-license
   - mkdir -p /root/.android
   - touch /root/.android/repositories.cfg
   - linux-sdk-tools/tools/bin/sdkmanager --update > update.log
@@ -165,10 +175,16 @@ First of all, we update the system and install two packages, which are needed fo
 - mkdir gradle
 - unzip -q gradle.zip -d gradle
 - chmod +x gradle/gradle-4.6/bin/gradle
-- yes | linux-sdk-tools/tools/bin/sdkmanager --licenses
+- mkdir linux-sdk-tools/licenses
+- printf "601085b94cd77f0b54ff86406957099ebe79c4d6" > linux-sdk-tools/licenses/android-googletv-license
+- printf "d56f5187479451eabf01fb78af6dfcb131a6481e" > linux-sdk-tools/licenses/android-sdk-license
+- printf "84831b9409646a918e30573bab4c9c91346d8abd" > linux-sdk-tools/licenses/android-sdk-preview-license
+- printf "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > linux-sdk-tools/licenses/android-gdk-license
+- printf "e9acab5b5fbb560a72cfaecce8946896ff6aab9d" > linux-sdk-tools/licenses/mips-android-sysimage-license
+
 ```
 
-Then we download and unzip the SDK tools and Gradle 4.6 for later usage. The apt version of gradle is currently bugged and won't run the build correctly. We also accept the licenses for the SDKs. Without accepting the licenses, the sdkmanager won't download or update the SDKs.
+Then we download and unzip the SDK tools and Gradle 4.6 for later usage. The apt version of gradle is currently bugged and won't run the build correctly. We also accept the licenses for the SDKs. Without accepting the licenses, the sdkmanager won't download or update the SDKs. The actual licenses are copied from our local machine.
 
 ```yml
 
@@ -242,7 +258,7 @@ instrumentalTests:
     - adb shell settings put global animator_duration_scale 0 &
     - adb shell input keyevent 82 &
     - ../gradle/gradle-4.6/bin/gradle connectedAndroidTest
-    - adb -s testAVD emu kill
+    - adb emu kill
   artifacts:
     name: "report-instrumental-tests_${CI_PROJECT_NAME}_{CI_BUILD_REF_NAME}"
     when: on_failure
@@ -251,7 +267,7 @@ instrumentalTests:
       - android/app/build/reports/androidTests/
 ```
 
-The ```instrumentalTests``` job is a bit more complicated. First of all, it should only run on shared runners that have the ```do``` tag. Since the instrumental tests run on emulator the docker image needs to support KVM hardware acceleration. The only shared runners supporting KVM are the ```do``` tagged runner. [android-wait-for-emulator](https://github.com/travis-ci/travis-cookbooks/blob/master/community-cookbooks/android-sdk/files/default/android-wait-for-emulator) is a script that waits for an emulator to be ready for usage. We then download the image for an x86 emulator with our target SDK and create and start an avd with that system image and wait until it has started. We then disable animations and transitions since those can interfere with instrumental tests. ```keyevent 82``` unlocks the device, after which we run ```gradle connectedAndroidTest```. This gradle task is only available (check with gradle tasks) if you have an emulator running or a device connected. Afterwards we stop the emulator and, as with the unit tests, upload the reports in case of failure, which expire after four days.
+The `instrumentalTests` job is a bit more complicated. First of all, it should only run on shared runners that have the `do` tag. Since the instrumental tests run on emulator the docker image needs to support KVM hardware acceleration. The only shared runners supporting KVM are the `do` tagged runner. [android-wait-for-emulator](https://github.com/travis-ci/travis-cookbooks/blob/master/community-cookbooks/android-sdk/files/default/android-wait-for-emulator) is a script that waits for an emulator to be ready for usage. We then download the image for an x86 emulator with our target SDK and create and start an avd with that system image and wait until it has started. We then disable animations and transitions since those can interfere with instrumental tests. `keyevent 82` unlocks the device, after which we run `gradle connectedAndroidTest`. This gradle task is only available (check with gradle tasks) if you have an emulator running or a device connected. Then we kill the emulator. Since we only have one emulator running, we don't need to specify the device to kill. Else we would need to use `adb -s <device-id> emu kill` (device-id is not the same as the name we chose, testAVD. It can be looked up with adb devices). As with the unit tests, we upload the reports in case of failure, which expire after four days.
 
 ```yml
 lint:
@@ -268,6 +284,6 @@ lint:
       - android/app/build/reports/
 ```
 
-This runs lint. Basically it runs ```gradle lint``` and uploads the reports. Since lint also has warnings that do not fail the build, we always want to have the report.
+This runs lint. Basically it runs `gradle lint` and uploads the reports. Since lint also has warnings that do not fail the build, we always want to have the report.
 
 And that's all we have so far. The next steps we want to take are running the build with [caching](https://docs.gitlab.com/ee/ci/caching), as well as implementing more static code analysis tools and making them visible in the repository.

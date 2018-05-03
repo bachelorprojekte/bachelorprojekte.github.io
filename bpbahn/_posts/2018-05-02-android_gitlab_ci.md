@@ -11,7 +11,7 @@ tags:
 # GitLab CI on Android
 If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with [GitLab CI](https://about.gitlab.com/geatures/gitlab-ci-cd) and want to share our insights with you.
 
-<!-- more -->
+<!--more-->
 
 ## The whole .gitlab-ci.yml
 

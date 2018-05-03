@@ -15,9 +15,9 @@ If you ever tried implementing CI for Android development, I am sure you ran int
 
 ## The whole .gitlab-ci.yml
 
-<details><summary>.gitlab-ci.ym</summary>
-```yml
-image: openjdk:8-jdk
+<details>
+<summary>.gitlab-ci.yml</summary>
+<pre><code>image: openjdk:8-jdk
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -114,8 +114,7 @@ lint:
     expire_in: 4 days
     paths:
       - android/app/build/reports/
-```
-</details>
+</code></pre></details>
 
 Lets break it down step by step. First of all the:
 

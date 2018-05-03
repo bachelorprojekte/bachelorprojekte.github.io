@@ -5,11 +5,13 @@ category: bpbahn
 author: Melvin Witte
 tags:
 - gitlab-ci
-- latex
+- android
 ---
 
 # GitLab CI on Android
 If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with [GitLab CI](https://about.gitlab.com/geatures/gitlab-ci-cd) and want to share our insights with you.
+
+<!-- more -->
 
 ## The whole .gitlab-ci.yml
 
@@ -121,7 +123,7 @@ variables:
 
 First of all we declare the image. We use ```openjdk:8-jdk```, since it has Java and the JDK we need installed. It has Ubuntu 16.04 as OS.
 
-After that, we set a few variables. ```GRADLE_OPTS: "-Dorf.gradle.daemon=false"``` tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won't be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on.
+After that, we set a few variables. ```GRADLE_OPTS: "-Dorg.gradle.daemon=false"``` tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won't be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on.
 
 Let's take a look at the before_script section now. This is run before every job of this build:
 

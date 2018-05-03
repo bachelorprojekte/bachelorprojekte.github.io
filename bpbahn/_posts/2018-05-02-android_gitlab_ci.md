@@ -11,10 +11,11 @@ tags:
 # GitLab CI on Android
 If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with [GitLab CI](https://about.gitlab.com/geatures/gitlab-ci-cd) and want to share our insights with you.
 
-<!--more-->
+<!-- more -->
 
 ## The whole .gitlab-ci.yml
 
+<details><summary>.gitlab-ci.ym</summary>
 ```yml
 image: openjdk:8-jdk
 
@@ -109,6 +110,7 @@ lint:
     paths:
       - android/app/build/reports/
 ```
+</details>
 
 Lets break it down step by step. First of all the:
 

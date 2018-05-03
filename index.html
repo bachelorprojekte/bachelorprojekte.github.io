@@ -189,9 +189,9 @@
 
 <h2 id="the-whole-gitlab-ciyml">The whole .gitlab-ci.yml</h2>
 
-<details><summary>.gitlab-ci.ym</summary>
-```yml
-image: openjdk:8-jdk
+<details>
+<summary>.gitlab-ci.yml</summary>
+<pre><code>image: openjdk:8-jdk
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -288,8 +288,7 @@ lint:
     expire_in: 4 days
     paths:
       - android/app/build/reports/
-```
-</details>
+</code></pre></details>
 
 <p>Lets break it down step by step. First of all the:</p>
 

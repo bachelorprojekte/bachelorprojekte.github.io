@@ -185,6 +185,8 @@
         <h1 id="gitlab-ci-on-android">GitLab CI on Android</h1>
 <p>If you ever tried implementing CI for Android development, I am sure you ran into some problems you cracked your head over for a few hours. We were at that point with <a href="https://about.gitlab.com/geatures/gitlab-ci-cd">GitLab CI</a> and want to share our insights with you.</p>
 
+<!-- more -->
+
 <h2 id="the-whole-gitlab-ciyml">The whole .gitlab-ci.yml</h2>
 
 <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">image</span><span class="pi">:</span> <span class="s">openjdk:8-jdk</span>
@@ -293,7 +295,7 @@
 
 <p>First of all we declare the image. We use <code class="highlighter-rouge">openjdk:8-jdk</code>, since it has Java and the JDK we need installed. It has Ubuntu 16.04 as OS.</p>
 
-<p>After that, we set a few variables. <code class="highlighter-rouge">GRADLE_OPTS: "-Dorf.gradle.daemon=false"</code> tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won’t be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on.</p>
+<p>After that, we set a few variables. <code class="highlighter-rouge">GRADLE_OPTS: "-Dorg.gradle.daemon=false"</code> tells Gradle to not use the Gradle daemon in builds. The daemon is mainly used to cache some information between builds. Since GitLab CI uses fresh docker images at the start of every build to keep the build process isolated, there won’t be a chance for Gradle to cache stuff. Then we define the target SDK for this build and which build tools to use. Defining them here as variables saves us work if we want to update them later on.</p>
 
 <p>Let’s take a look at the before_script section now. This is run before every job of this build:</p>
 
@@ -436,7 +438,7 @@
         
           <a href="/tags/#gitlab-ci" class="post-tag"> gitlab-ci </a>
         
-          <a href="/tags/#latex" class="post-tag"> latex </a>
+          <a href="/tags/#android" class="post-tag"> android </a>
         
       </div>
     </article>
